@@ -1,6 +1,7 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedHashMap;
 
 public class CustomerInfo extends JInternalFrame {
 
@@ -8,7 +9,10 @@ public class CustomerInfo extends JInternalFrame {
     private final ImageIcon gold = new ImageIcon("gold.jpg");
     private JPanel midPn, leftPn, rightPn, itemPn, cstPn, iteminfoPn, cstinfo1Pn, cstinfo2Pn, enterPn;
     private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemstatusLb, nameLb, telLb, adrsLb, mailLb, mnyLb, intrLb;
-
+    private Customer customer;
+    private LinkedHashMap<Integer, Pawn> itmes_data;
+    private JPanel panelContainer;
+    
     public CustomerInfo() {
         midPn = new JPanel(new GridLayout(1, 2));
         leftPn = new JPanel(new BorderLayout());
@@ -41,39 +45,18 @@ public class CustomerInfo extends JInternalFrame {
         itemLb.setHorizontalAlignment(SwingConstants.CENTER);
         itemLb.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 /////------***************************
-        JPanel panelContainer = new JPanel();
+        panelContainer = new JPanel();
         panelContainer.setLayout(new BoxLayout(panelContainer, BoxLayout.Y_AXIS));
 
-        for (int i = 0; i < 6; i++) {
-            itemPn = new JPanel(new GridLayout(1, 2));
-            iteminfoPn = new JPanel(new GridLayout(4, 1));
-            itempicLb = new JLabel(gold);
-            itemidLb = new JLabel("ID : ");
-            itemnameLb = new JLabel("Name : ");
-            itempriceLb = new JLabel("Price : ");
-            itemstatusLb = new JLabel("Status : ");
-            iteminfoPn.add(itemidLb);
-            iteminfoPn.add(itemnameLb);
-            iteminfoPn.add(itempriceLb);
-            iteminfoPn.add(itemstatusLb);
-            iteminfoPn.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
-            itemPn.add(itempicLb);
-            itemPn.add(iteminfoPn);
-            itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
-            itemLb.setFont(regF);
-            cinfoLb.setFont(regF);
-            itemidLb.setFont(regF);
-            itemnameLb.setFont(regF);
-            itempriceLb.setFont(regF);
-            itemstatusLb.setFont(regF);
-            nameLb.setFont(regF);
-            telLb.setFont(regF);
-            adrsLb.setFont(regF);
-            mailLb.setFont(regF);
-            mnyLb.setFont(regF);
-            intrLb.setFont(regF);
-            panelContainer.add(itemPn);
-        }
+        
+        setPawnedItem(0, "", 0, "");
+        nameLb.setFont(regF);
+        telLb.setFont(regF);
+        adrsLb.setFont(regF);
+        mailLb.setFont(regF);
+        mnyLb.setFont(regF);
+        intrLb.setFont(regF);
+
         JScrollPane scroller = new JScrollPane(panelContainer);
         leftPn.add(scroller, BorderLayout.CENTER);
 ////-------*******************
@@ -108,4 +91,53 @@ public class CustomerInfo extends JInternalFrame {
         this.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
         this.setVisible(true);
     }
+    
+    public void Search(String kw){
+        int keyword = Integer.parseInt(kw);
+        try{
+            //Set Infomation Customer
+            customer = MainGUI.getInfo().getCustomers_Data().get(keyword);
+            nameLb.setText("Name : " + customer.getName());
+            telLb.setText("Phone Number : " + customer.getPhone_number());
+            adrsLb.setText("Address : " + customer.getAddress());
+            mailLb.setText("E-mail : " + customer.getEmail());
+//        mnyLb.setText("Money : " + customer);
+
+            //Set Pawned Item
+            panelContainer.removeAll();
+            System.out.println("Yes");
+            itmes_data = customer.getItmes_data();
+            for (Pawn p : itmes_data.values()){
+                String status = p.getDate()+"/"+p.getMonth()+"/"+p.getYear();
+                setPawnedItem(p.getID(), p.getName(), p.getValue(), status);
+            }
+        }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Customer not found!", "", JOptionPane.ERROR_MESSAGE);
+        }
+        
+   }
+   public void setPawnedItem(int id, String name, double price, String status){
+        itemPn = new JPanel(new GridLayout(1, 2));
+        iteminfoPn = new JPanel(new GridLayout(4, 1));
+        itempicLb = new JLabel(gold);
+        itemidLb = new JLabel("ID : " + id);
+        itemnameLb = new JLabel("Name : " + name);
+        itempriceLb = new JLabel("Price : " + price);
+        itemstatusLb = new JLabel("Status : " + status);
+        iteminfoPn.add(itemidLb);
+        iteminfoPn.add(itemnameLb);
+        iteminfoPn.add(itempriceLb);
+        iteminfoPn.add(itemstatusLb);
+        iteminfoPn.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
+        itemPn.add(itempicLb);
+        itemPn.add(iteminfoPn);
+        itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
+        itemLb.setFont(regF);
+        cinfoLb.setFont(regF);
+        itemidLb.setFont(regF);
+        itemnameLb.setFont(regF);
+        itempriceLb.setFont(regF);
+        itemstatusLb.setFont(regF);
+        panelContainer.add(itemPn);
+   }
 }

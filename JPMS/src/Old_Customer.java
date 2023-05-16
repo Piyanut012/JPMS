@@ -1,5 +1,7 @@
 
 public class Old_Customer extends Customer{
+    
+    
     @Override
     public void Promotion(){
         System.out.println("ProOld");

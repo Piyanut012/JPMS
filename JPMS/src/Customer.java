@@ -3,6 +3,7 @@ import java.util.*;
 import java.io.*;
 
 public abstract class Customer implements Serializable{
+    private int id;
     private String name;
     private String phone_number;
     private String address;
@@ -10,38 +11,33 @@ public abstract class Customer implements Serializable{
     private String FB;
     private String IDline;
     private double principle;
-    private double interest;
-    private ArrayList<Pawn> itmes;
+//    private double interest;
+    private LinkedHashMap<Integer, Pawn> itmes_data;
 
     public Customer(){
-        this("", "", "", "", "", "", 0.0);
+        this(0,"", "", "", "", "", "");
     }
     
-    public Customer(String name, String phone_number, String address, String email, String FB, String IDline, double principle) {
-        this.itmes = new ArrayList<>();
-        Pawn item1 = new Appliance();
-        item1.setID(1);
-        Pawn item2 = new Appliance();
-        item2.setID(2);
-        this.itmes.add(item1);
-        this.itmes.add(item2);
+    public Customer(int id,String name, String phone_number, String address, String email, String FB, String IDline) {
+        this.id = id;
         this.name = name;
         this.phone_number = phone_number;
         this.address = address;
         this.email = email;
         this.FB = FB;
         this.IDline = IDline;
-        this.principle = principle;
+        this.principle = 0;
+        this.itmes_data = new LinkedHashMap<>();
+    }
+
+    public LinkedHashMap<Integer, Pawn> getItmes_data() {
+        return itmes_data;
+    }
+
+    public void setItmes_data(LinkedHashMap<Integer, Pawn> itmes_data) {
+        this.itmes_data = itmes_data;
     }
     
-    public ArrayList<Pawn> getItmes() {
-        return itmes;
-    }
-
-    public void setItmes(ArrayList<Pawn> itmes) {
-        this.itmes = itmes;
-    }
-
     public String getName() {
         return name;
     }
@@ -98,12 +94,12 @@ public abstract class Customer implements Serializable{
         this.principle = principle;
     }
 
-    public double getInterest() {
-        return interest;
+    public int getId() {
+        return id;
     }
 
-    public void setInterest(double interest) {
-        this.interest = interest;
+    public void setId(int id) {
+        this.id = id;
     }
     
     public abstract void Promotion();

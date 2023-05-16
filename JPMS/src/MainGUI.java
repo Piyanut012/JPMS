@@ -183,14 +183,24 @@ public class MainGUI implements ActionListener, WindowListener{
             btn_sell = new Button_Sell((pawn_droppings_GUI) currentPanel);
             south.add(btn_sell);
         }else if (e.getSource().equals(btn_seacrh)){
-            redemption.Search(search_id.getText());
-            search_id.setText(null);
-            System.out.println("Search");
+            try{
+                if (currentPanel == customers){
+                    customers.Search(search_id.getText());
+                    search_id.setText(null);
+                    System.out.println("Search");
+                }else{
+                    redemption.Search(search_id.getText());
+                    search_id.setText(null);
+                    System.out.println("Search");
+                }
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Please enter id!", "", JOptionPane.ERROR_MESSAGE);
+            }
+            
             
         }else if (e.getSource().equals(btn_new_customer)){
-//            new New_CustomerGUI(fr);
+            new New_CustomerGUI(fr);
             System.out.println("AddCustomer");
-            new Retrieve();
         }
         fr.revalidate();
         fr.repaint();

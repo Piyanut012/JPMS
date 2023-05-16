@@ -87,13 +87,11 @@ public class New_CustomerGUI implements ActionListener {
         dialog.setVisible (true);
     }
 
-
-    
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(bu)){
-            new AddMoneyGUI(dialog);
+            Customer c = new New_Customer(MainGUI.getInfo().getId_customer() ,te1.getText(), te2.getText(), te3.getText(), te4.getText(), te5.getText(), te6.getText());
+            new New_AddMoneyGUI(dialog, c);
         }
     }
 }

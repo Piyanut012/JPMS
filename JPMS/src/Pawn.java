@@ -8,10 +8,19 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
     public Pawn() {
        this(0, "", 0.0, null);
     }
-
+    
+    public Pawn(int ID, String name, double value) {
+        super(ID, name, value);
+        Calendar d = Calendar.getInstance();
+        d.add(Calendar.MONTH, 5); // Add 5 months
+        this.date = d.get(Calendar.DATE);
+        this.month = d.get(Calendar.MONTH);
+        this.year = d.get(Calendar.YEAR);
+    }
     public Pawn(int ID, String name, double value, ImageIcon image) {
         super(ID, name, value, image);
         Calendar d = Calendar.getInstance();
+        d.add(Calendar.MONTH, 5); // Add 5 months
         this.date = d.get(Calendar.DATE);
         this.month = d.get(Calendar.MONTH);
         this.year = d.get(Calendar.YEAR);
@@ -22,6 +31,7 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
     }
     public void SendInterest(){
         Calendar d = Calendar.getInstance();
+        d.add(Calendar.MONTH, 5); // Add 5 months
         this.date = d.get(Calendar.DATE);
         this.month = d.get(Calendar.MONTH);
         this.year = d.get(Calendar.YEAR);
