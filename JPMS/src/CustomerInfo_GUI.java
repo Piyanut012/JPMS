@@ -8,7 +8,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
 
     private final Font regF = new Font("Century Gothic", Font.PLAIN, 18);
     private final Font regFB = new Font("Century Gothic", Font.BOLD, 20);
-    private final ImageIcon gold = new ImageIcon("gold.jpg");
+    private ImageIcon image;
     private JPanel midPn, leftPn, rightPn, itemPn, cstPn, iteminfoPn, cstinfo1Pn, editcstPn;
     private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemstatusLb, idLb, nameLb, telLb, adrsLb, mailLb, fbLb, lineLb, loanLb;
     private Customer current_customer;
@@ -18,6 +18,8 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
     private JButton editBtn;
 
     public CustomerInfo_GUI() {
+      
+        
         midPn = new JPanel(new GridLayout(1, 2));
         leftPn = new JPanel(new BorderLayout());
         rightPn = new JPanel(new BorderLayout());
@@ -56,6 +58,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         loanTf = new JTextField();
         loanTf.setEditable(false);
         editBtn = new JButton("Edit");
+        editBtn.setEnabled(false);
         editBtn.setFont(regF);
 
         // set jframe
@@ -69,7 +72,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         panelContainer = new JPanel();
         panelContainer.setLayout(new BoxLayout(panelContainer, BoxLayout.Y_AXIS));
 
-        setPawnedItem(0, "", 0, "");
+        setPawnedItem(0, "", 0, "", null);
         idLb.setFont(regFB);
         nameLb.setFont(regF);
         telLb.setFont(regF);
@@ -135,10 +138,13 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
     }
 
     public void Search(String kw) {
+
         int keyword = Integer.parseInt(kw);
         try {
             //Set Infomation Customer
             current_customer = MainGUI.getInfo().getCustomers_Data().get(keyword);
+            editBtn.setEnabled(true);
+            
             idLb.setText("ID : " + current_customer.getId());
             nameTf.setText(current_customer.getName());
             telTf.setText(current_customer.getPhone_number());
@@ -153,19 +159,26 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             System.out.println("Yes");
             itmes_data = current_customer.getItmes_data();
             for (Pawn p : itmes_data.values()) {
-                String status = p.getDate() + "/" + p.getMonth() + "/" + p.getYear();
-                setPawnedItem(p.getID(), p.getName(), p.getValue(), status);
+                setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(), p.getImage());
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Customer not found!", "", JOptionPane.ERROR_MESSAGE);
         }
 
     }
+    public void Search(int kw) {
+        Search(kw+"");
+    }
 
-    public void setPawnedItem(int id, String name, double price, String status) {
+    public void setPawnedItem(int id, String name, double price, String status, ImageIcon image) {
         itemPn = new JPanel(new GridLayout(1, 2));
         iteminfoPn = new JPanel(new GridLayout(4, 1));
-        itempicLb = new JLabel(gold);
+        if (image == null){
+           itempicLb = new JLabel("No Picture!", JLabel.CENTER);
+           itempicLb.setFont(regF);
+        }else{
+           itempicLb = new JLabel(image); 
+        }
         itemidLb = new JLabel("ID : " + id);
         itemnameLb = new JLabel("Name : " + name);
         itempriceLb = new JLabel("Price : " + price);
@@ -180,7 +193,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
         itemLb.setFont(regFB);
         cinfoLb.setFont(regFB);
-        itemidLb.setFont(regF);
+        itemidLb.setFont(regFB);
         itemnameLb.setFont(regF);
         itempriceLb.setFont(regF);
         itemstatusLb.setFont(regF);
@@ -223,4 +236,13 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
 //            loanTf.setEditable(notEditing);
         }
     }
+
+    public Customer getCurrent_customer() {
+        return current_customer;
+    }
+
+    public void setCurrent_customer(Customer current_customer) {
+        this.current_customer = current_customer;
+    }
+    
 }

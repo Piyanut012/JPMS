@@ -163,9 +163,10 @@ public class MainGUI implements ActionListener, WindowListener{
 
             //Add Button At South
             south.removeAll();
-            btn_addmoney = new Button_AddMoney();
-            btn_payinterest = new Button_PayInterest();
+            btn_addmoney = new Button_AddMoney(fr, customers);
+            btn_payinterest = new Button_PayInterest(fr, customers);
             btn_redeem = new Button_Redeem();
+                
             btn_addmoney.addActionListener(btn_addmoney);
             btn_payinterest.addActionListener(btn_payinterest);
             btn_redeem.addActionListener(btn_redeem);
@@ -185,6 +186,7 @@ public class MainGUI implements ActionListener, WindowListener{
         }else if (e.getSource().equals(btn_seacrh)){
             try{
                 if (currentPanel == customers){
+                    System.out.println(search_id.getText());
                     customers.Search(search_id.getText());
                     search_id.setText(null);
                     System.out.println("Search");

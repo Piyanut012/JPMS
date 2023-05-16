@@ -63,4 +63,7 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
         this.year = year;
     }
     
+    public String getStr_status(){
+        return getDate() + "/" + getMonth() + "/" + getYear();
+    }
 }

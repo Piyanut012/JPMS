@@ -102,7 +102,7 @@ public class LoginPage implements ActionListener {
         String password = new String(passTf.getPassword());
         if (ae.getSource().equals(loginBtn)) {
             if (username.equals("admin") && (password.equals("12345"))) {
-                 new CustomerInfo_GUI1();
+                 new CustomerInfo_GUIlast();
                 mainFr.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Wrong username or password!", "", JOptionPane.WARNING_MESSAGE);
