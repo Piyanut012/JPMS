@@ -80,7 +80,7 @@ public final class Information implements Serializable{
     }
 
     public int getId_item() {
-        return id_item++;
+        return ++id_item;
     }
 
     public void setId_item(int id_item) {
@@ -88,7 +88,7 @@ public final class Information implements Serializable{
     }
 
     public int getId_customer() {
-        return id_customer++;
+        return ++id_customer;
     }
 
     public void setId_customer(int id_customer) {

@@ -24,12 +24,13 @@ public class New_CustomerGUI implements ActionListener {
     private JTextField te5;
     private JTextField te6;
     private JButton bu;
+    private int id;
 
     public New_CustomerGUI(JFrame parentFrame) {
-    
+        id = MainGUI.getInfo().getId_customer();
         dialog = new JDialog(parentFrame, "New Customer", true);  
         pa = new JPanel();
-        lb1 = new JLabel ("NEW");
+        lb1 = new JLabel ("ID : " + id);
         lb2 = new JLabel ("Name :");
         lb3 = new JLabel ("Phone : ");
         lb4 = new JLabel ("Address :");
@@ -48,6 +49,12 @@ public class New_CustomerGUI implements ActionListener {
         pa.setLayout (null);
         
         bu.addActionListener(this);
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                MainGUI.getInfo().setId_customer(id - 1);
+            }
+        });
 
         pa.add (lb1);
         pa.add (lb2);
@@ -90,7 +97,7 @@ public class New_CustomerGUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(bu)){
-            Customer c = new New_Customer(MainGUI.getInfo().getId_customer() ,te1.getText(), te2.getText(), te3.getText(), te4.getText(), te5.getText(), te6.getText());
+            Customer c = new New_Customer(id ,te1.getText(), te2.getText(), te3.getText(), te4.getText(), te5.getText(), te6.getText());
             new New_AddMoneyGUI(dialog, c);
         }
     }

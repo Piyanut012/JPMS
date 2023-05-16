@@ -12,8 +12,8 @@ public class MainGUI implements ActionListener, WindowListener{
     private JFrame fr;
     private JPanel north, mid, east, west, south,
                 top, select_button, search;
-    private DashBoard_GUI2 dashboard;
-    private CustomerInfo customers;
+    private DashBoard_GUI dashboard;
+    private CustomerInfo_GUI customers;
     private pawn_droppings_GUI redemption;
     private JInternalFrame currentPanel;
     private JLabel head, name, lb_search1;
@@ -89,17 +89,17 @@ public class MainGUI implements ActionListener, WindowListener{
         btn_redemption.setPreferredSize(new Dimension(150, 50));
         
         //Mid
-        dashboard = new DashBoard_GUI2();
+        dashboard = new DashBoard_GUI();
         currentPanel = dashboard;
         
         //East
         east = new JPanel();
-        east.setPreferredSize(new Dimension(25, 500));
+        east.setPreferredSize(new Dimension(50, 500));
         east.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //West
         west = new JPanel();
-        west.setPreferredSize(new Dimension(25, 500));
+        west.setPreferredSize(new Dimension(50, 500));
         west.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //South
@@ -150,14 +150,14 @@ public class MainGUI implements ActionListener, WindowListener{
             south.removeAll();
             search.setVisible(false);
             fr.remove(currentPanel); 
-            dashboard = new DashBoard_GUI2();
+            dashboard = new DashBoard_GUI();
             currentPanel = dashboard;
             fr.add(currentPanel);
         }else if (e.getSource().equals(btn_customers)){
             search.setVisible(true);
             btn_new_customer.setVisible(true);
             fr.remove(currentPanel);
-            customers = new CustomerInfo();
+            customers = new CustomerInfo_GUI();
             currentPanel = customers;
             fr.add(currentPanel);
 
@@ -200,7 +200,6 @@ public class MainGUI implements ActionListener, WindowListener{
             
         }else if (e.getSource().equals(btn_new_customer)){
             new New_CustomerGUI(fr);
-            System.out.println("AddCustomer");
         }
         fr.revalidate();
         fr.repaint();

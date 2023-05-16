@@ -12,6 +12,7 @@ public class Button_PayInterest extends JButton implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        new Retrieve();
         System.out.println("PayInterest");
     }
     
