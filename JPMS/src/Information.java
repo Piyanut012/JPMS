@@ -9,6 +9,8 @@ public final class Information implements Serializable{
     private double pawn;
     private double pawn_droppings;
     private double pawn_sale;
+    private int id_item_all;
+    private int id_customer_all;
     private int id_item;
     private int id_customer;
     private LinkedHashMap<Integer ,Pawn_droppings> Pawn_droppings_data;
@@ -27,6 +29,8 @@ public final class Information implements Serializable{
         this.pawn_sale = pawn_sale;
         this.id_item = 0;
         this.id_customer = 0;
+        this.id_item_all = 0;
+        this.id_customer_all = 0;
         this.Pawn_droppings_data = new LinkedHashMap<>();
         this.Customers_Data =  new LinkedHashMap<>();
     }
@@ -40,6 +44,7 @@ public final class Information implements Serializable{
     }
 
     public double getCurrent_money() {
+        this.current_money = current_money - loan;
         return current_money;
     }
 
@@ -58,7 +63,6 @@ public final class Information implements Serializable{
     public double getPawn() {
         return pawn;
     }
-
     public void setPawn(double pawn) {
         this.pawn = pawn;
     }
@@ -111,6 +115,24 @@ public final class Information implements Serializable{
 
     public void setCustomers_Data(LinkedHashMap<Integer, Customer> Customers_Data) {
         this.Customers_Data = Customers_Data;
+    }
+    
+    public int getId_item_all() {
+        id_item_all = id_item;
+        return id_item_all;
+    }
+
+    public void setId_item_all(int id_item_all) {
+        this.id_item_all = id_item_all;
+    }
+
+    public int getId_customer_all() {
+        id_customer_all = id_customer;
+        return id_customer_all;
+    }
+
+    public void setId_customer_all(int id_customer_all) {
+        this.id_customer_all = id_customer_all;
     }
 
 

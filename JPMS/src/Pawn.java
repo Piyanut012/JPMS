@@ -30,6 +30,7 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
         System.out.println("Sell Pawn");
     }
     public void SendInterest(){
+        System.out.println(this.getName());
         Calendar d = Calendar.getInstance();
         d.add(Calendar.MONTH, 5); // Add 5 months
         this.date = d.get(Calendar.DATE);

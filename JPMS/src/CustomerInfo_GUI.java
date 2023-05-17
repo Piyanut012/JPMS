@@ -30,11 +30,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         editcstPn = new JPanel(new BorderLayout());
         itemLb = new JLabel("Pawned Item(s)");
         cinfoLb = new JLabel("Customer's Info");
-//        itempicLb = new JLabel(gold);
-//        itemidLb = new JLabel("ID : ");
-//        itemnameLb = new JLabel("Name : ");
-//        itempriceLb = new JLabel("Price : ");
-//        itemstatusLb = new JLabel("Status : ");
+
         idLb = new JLabel("ID : ");
         nameLb = new JLabel("Name : ");
         telLb = new JLabel("Phone Number : ");
@@ -142,17 +138,19 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         int keyword = Integer.parseInt(kw);
         try {
             //Set Infomation Customer
-            current_customer = MainGUI.getInfo().getCustomers_Data().get(keyword);
+            Customer currentcustomer = MainGUI.getInfo().getCustomers_Data().get(keyword);
             editBtn.setEnabled(true);
             
-            idLb.setText("ID : " + current_customer.getId());
-            nameTf.setText(current_customer.getName());
-            telTf.setText(current_customer.getPhone_number());
-            adrsTf.setText(current_customer.getAddress());
-            mailTf.setText(current_customer.getEmail());
-            fbTf.setText(current_customer.getFB());
-            lineTf.setText(current_customer.getIDline());
-            loanTf.setText(current_customer.getPrinciple() + "");
+            idLb.setText("ID : " + currentcustomer.getId());
+            nameTf.setText(currentcustomer.getName());
+            telTf.setText(currentcustomer.getPhone_number());
+            adrsTf.setText(currentcustomer.getAddress());
+            mailTf.setText(currentcustomer.getEmail());
+            fbTf.setText(currentcustomer.getFB());
+            lineTf.setText(currentcustomer.getIDline());
+            loanTf.setText(currentcustomer.getPrinciple() + "");
+            
+            current_customer = currentcustomer;
 
             //Set Pawned Item
             panelContainer.removeAll();

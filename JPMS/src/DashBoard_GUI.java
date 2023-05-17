@@ -10,6 +10,8 @@ import javax.swing.*;
 
 
 public class DashBoard_GUI extends JInternalFrame{
+    private final Font regF = new Font("Century Gothic", Font.PLAIN, 18);
+    private final Font regFB = new Font("Century Gothic", Font.BOLD, 20);
     private JPanel pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8,
             pl9, pl10, pl11, pl12, pl13, pl14, pl15, pl16, 
             pl17, pl18, pl19, pl20, pl21, pl22, pl23, pl24;
@@ -83,52 +85,53 @@ public class DashBoard_GUI extends JInternalFrame{
         } catch (IOException ex) {
             Logger.getLogger(DashBoard_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         lb2 = new JLabel("Funds");
-        lb2.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb3 = new JLabel("1,250,000");
-        lb3.setFont(new Font("Arial", Font.BOLD, 25));
+        lb2.setFont(regF);
+        lb3 = new JLabel(MainGUI.getInfo().getCapital()+"");
+        lb3.setFont(regFB);
         lb3.setForeground(Color.CYAN);
         
         lb5 = new JLabel("Profit");
-        lb5.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb6 = new JLabel("627,020");
-        lb6.setFont(new Font("Arial", Font.BOLD, 25));
+        lb5.setFont(regF);
+        lb6 = new JLabel(MainGUI.getInfo().getCurrent_money()+"");
+        lb6.setFont(regFB);
         lb6.setForeground(Color.ORANGE);
         
         lb8 = new JLabel("Loaned");
-        lb8.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb9 = new JLabel("500,000");
-        lb9.setFont(new Font("Arial", Font.BOLD, 25));
+        lb8.setFont(regF);
+        lb9 = new JLabel(MainGUI.getInfo().getLoan()+"");
+        lb9.setFont(regFB);
         lb9.setForeground(Color.RED);
         
         lb11 = new JLabel("Users");
-        lb11.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb12 = new JLabel("100");
-        lb12.setFont(new Font("Arial", Font.BOLD, 25));
+        lb11.setFont(regF);
+        lb12 = new JLabel(MainGUI.getInfo().getId_customer_all()+"");
+        lb12.setFont(regFB);
         lb12.setForeground(Color.BLUE);
         
         lb14 = new JLabel("Pledged");
-        lb14.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb15 = new JLabel("150");
-        lb15.setFont(new Font("Arial", Font.BOLD, 25));
+        lb14.setFont(regF);
+        lb15 = new JLabel(MainGUI.getInfo().getId_item_all()+"");
+        lb15.setFont(regFB);
         lb15.setForeground(Color.MAGENTA);
         
         lb17 = new JLabel("Pawned");
-        lb17.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb18 = new JLabel("11");
-        lb18.setFont(new Font("Arial", Font.BOLD, 25));
+        lb17.setFont(regF);
+        lb18 = new JLabel(MainGUI.getInfo().getPawn_droppings()+"");
+        lb18.setFont(regFB);
         lb18.setForeground(Color.GREEN);
         
         lb20 = new JLabel("Difference");
-        lb20.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb21 = new JLabel("100,000");
-        lb21.setFont(new Font("Arial", Font.BOLD, 25));
+        lb20.setFont(regF);
+        lb21 = new JLabel(MainGUI.getInfo().getPawn_sale()+"");
+        lb21.setFont(regFB);
         lb21.setForeground(Color.GREEN);
         
         lb23 = new JLabel("Sold");
-        lb23.setFont(new Font("Arial", Font.PLAIN, 20));
-        lb24 = new JLabel("50");
-        lb24.setFont(new Font("Arial", Font.BOLD, 25));
+        lb23.setFont(regF);
+        lb24 = new JLabel(MainGUI.getInfo().getLoan()+"");
+        lb24.setFont(regFB);
         lb24.setForeground(Color.RED);
         
         pl1.add(lb1, BorderLayout.WEST);

@@ -25,7 +25,7 @@ public class MainGUI implements ActionListener, WindowListener{
     private Button_Redeem btn_redeem;
     private static Information info;
     
-    private MainGUI(){
+    public MainGUI(){
         info = new Information();
         fr = new JFrame("JPSM");
         fr.setSize(1100, 800);
@@ -134,16 +134,6 @@ public class MainGUI implements ActionListener, WindowListener{
         fr.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        SwingUtilities.invokeLater(() -> { new MainGUI(); });
-//        new MainGUI();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(btn_dashboard)){
@@ -153,6 +143,11 @@ public class MainGUI implements ActionListener, WindowListener{
             dashboard = new DashBoard_GUI();
             currentPanel = dashboard;
             fr.add(currentPanel);
+            
+            //add money
+//            double money = 1500000;
+//            info.setCapital(money);
+//            info.setCurrent_money(money);
         }else if (e.getSource().equals(btn_customers)){
             search.setVisible(true);
             btn_new_customer.setVisible(true);
@@ -165,7 +160,7 @@ public class MainGUI implements ActionListener, WindowListener{
             south.removeAll();
             btn_addmoney = new Button_AddMoney(fr, customers);
             btn_payinterest = new Button_PayInterest(fr, customers);
-            btn_redeem = new Button_Redeem();
+            btn_redeem = new Button_Redeem(fr, customers);
                 
             btn_addmoney.addActionListener(btn_addmoney);
             btn_payinterest.addActionListener(btn_payinterest);
@@ -257,6 +252,16 @@ public class MainGUI implements ActionListener, WindowListener{
 
     public static void setInfo(Information info) {
         MainGUI.info = info;
+    }
+    
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> { new MainGUI(); });
+//        new MainGUI();
     }
     
 }
