@@ -86,19 +86,19 @@ public class DashBoard_GUI extends JInternalFrame{
             Logger.getLogger(DashBoard_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        lb2 = new JLabel("Funds");
+        lb2 = new JLabel("Capital");
         lb2.setFont(regF);
         lb3 = new JLabel(MainGUI.getInfo().getCapital()+"");
         lb3.setFont(regFB);
         lb3.setForeground(Color.CYAN);
         
-        lb5 = new JLabel("Profit");
+        lb5 = new JLabel("CurrentMoney");
         lb5.setFont(regF);
         lb6 = new JLabel(MainGUI.getInfo().getCurrent_money()+"");
         lb6.setFont(regFB);
         lb6.setForeground(Color.ORANGE);
         
-        lb8 = new JLabel("Loaned");
+        lb8 = new JLabel("Loan");
         lb8.setFont(regF);
         lb9 = new JLabel(MainGUI.getInfo().getLoan()+"");
         lb9.setFont(regFB);
@@ -110,27 +110,27 @@ public class DashBoard_GUI extends JInternalFrame{
         lb12.setFont(regFB);
         lb12.setForeground(Color.BLUE);
         
-        lb14 = new JLabel("Pledged");
+        lb14 = new JLabel("Pawn goods");
         lb14.setFont(regF);
-        lb15 = new JLabel(MainGUI.getInfo().getId_item_all()+"");
+        lb15 = new JLabel(MainGUI.getInfo().getPawn_goods()+"");
         lb15.setFont(regFB);
         lb15.setForeground(Color.MAGENTA);
         
-        lb17 = new JLabel("Pawned");
+        lb17 = new JLabel("Pawn droppings");
         lb17.setFont(regF);
         lb18 = new JLabel(MainGUI.getInfo().getPawn_droppings()+"");
         lb18.setFont(regFB);
         lb18.setForeground(Color.GREEN);
         
-        lb20 = new JLabel("Difference");
+        lb20 = new JLabel("Profit");
         lb20.setFont(regF);
-        lb21 = new JLabel(MainGUI.getInfo().getPawn_sale()+"");
+        lb21 = new JLabel(MainGUI.getInfo().getProfit()+"");
         lb21.setFont(regFB);
         lb21.setForeground(Color.GREEN);
         
         lb23 = new JLabel("Sold");
         lb23.setFont(regF);
-        lb24 = new JLabel(MainGUI.getInfo().getLoan()+"");
+        lb24 = new JLabel(MainGUI.getInfo().getSold()+"");
         lb24.setFont(regFB);
         lb24.setForeground(Color.RED);
         

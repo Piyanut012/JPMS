@@ -133,7 +133,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public void Search(String kw) {
+    public void UpdateGUI(String kw) {
 
         int keyword = Integer.parseInt(kw);
         try {
@@ -148,14 +148,18 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             mailTf.setText(currentcustomer.getEmail());
             fbTf.setText(currentcustomer.getFB());
             lineTf.setText(currentcustomer.getIDline());
-            loanTf.setText(currentcustomer.getPrinciple() + "");
+            loanTf.setText(currentcustomer.getLoan() + "");
             
             current_customer = currentcustomer;
 
             //Set Pawned Item
             panelContainer.removeAll();
-            System.out.println("Yes");
             itmes_data = current_customer.getItmes_data();
+            if (itmes_data.isEmpty()){
+                System.out.println("000");
+                setPawnedItem(0, "", 0.0, "", null);
+                return;
+            }
             for (Pawn p : itmes_data.values()) {
                 setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(), p.getImage());
             }
@@ -164,8 +168,8 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         }
 
     }
-    public void Search(int kw) {
-        Search(kw+"");
+    public void UpdateGUI(int kw) {
+        UpdateGUI(kw+"");
     }
 
     public void setPawnedItem(int id, String name, double price, String status, ImageIcon image) {

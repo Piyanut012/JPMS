@@ -8,15 +8,17 @@ public class New_Customer extends Customer{
         super(id, name, phone_number, address, email, FB, IDline);
     }
 
-   
-
     @Override
     public void Promotion(){
         System.out.println("ProNew");
     }
 
     @Override
-    public boolean CheckLimit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean CheckLimit(double total) {
+        if (total >= 500000){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

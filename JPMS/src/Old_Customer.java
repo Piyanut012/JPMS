@@ -8,7 +8,11 @@ public class Old_Customer extends Customer{
     }
 
     @Override
-    public boolean CheckLimit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean CheckLimit(double total) {
+        if (total >= 1000000){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

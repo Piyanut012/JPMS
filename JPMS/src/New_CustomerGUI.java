@@ -27,7 +27,7 @@ public class New_CustomerGUI implements ActionListener {
     private int id;
 
     public New_CustomerGUI(JFrame parentFrame) {
-        id = MainGUI.getInfo().getId_customer();
+        id = MainGUI.getInfo().getAdd_id_customer();
         dialog = new JDialog(parentFrame, "New Customer", true);  
         pa = new JPanel();
         lb1 = new JLabel ("ID : " + id);
@@ -52,7 +52,7 @@ public class New_CustomerGUI implements ActionListener {
         dialog.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                MainGUI.getInfo().setId_customer(id - 1);
+                MainGUI.getInfo().setAdd_id_customer(id - 1);
             }
         });
 
@@ -98,7 +98,7 @@ public class New_CustomerGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(bu)){
             Customer c = new New_Customer(id ,te1.getText(), te2.getText(), te3.getText(), te4.getText(), te5.getText(), te6.getText());
-            new New_AddMoneyGUI(dialog, c);
+            new New_AddPawngoodsGUI(dialog, c);
         }
     }
 }

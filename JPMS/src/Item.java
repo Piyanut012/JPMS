@@ -59,6 +59,6 @@ public abstract class Item implements Serializable{
         this.image = image;
     }
     
-    public abstract void Sell();
+    public abstract double Sell();
     
 }

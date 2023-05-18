@@ -16,7 +16,12 @@ public class AccessoryAndGem extends Pawn{
     
     
     @Override
-    public void CheckValue(){
-        System.out.println("100000");
+    public boolean CheckValue(double d){
+        if (d > 100000){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

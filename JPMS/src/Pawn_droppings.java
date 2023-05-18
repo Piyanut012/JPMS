@@ -15,9 +15,9 @@ public class Pawn_droppings extends Item{
         super(ID, name, value, image);
     }
     
-    
     @Override
-    public void Sell(){
+    public double Sell(){
         System.out.println("Sell Pawn_droppings");
+        return 1.2;
     }
 }

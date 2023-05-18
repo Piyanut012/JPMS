@@ -28,7 +28,6 @@ public class MainGUI implements ActionListener, WindowListener {
     private Button_PayInterest btn_payinterest;
     private Button_Redeem btn_redeem;
     private static Information info;
-//    private Customer currentcst = MainGUI.getInfo().getCustomers_Data().get(1);
 
     public MainGUI() {
 
@@ -90,9 +89,9 @@ public class MainGUI implements ActionListener, WindowListener {
         btn_customers = new JButton("Customers");
         btn_customers.setFont(new Font("Arial", Font.BOLD, 20));
         btn_customers.setPreferredSize(new Dimension(150, 50));
-        btn_redemption = new JButton("Redemption");
+        btn_redemption = new JButton("PawnDroppings");
         btn_redemption.setFont(new Font("Arial", Font.BOLD, 20));
-        btn_redemption.setPreferredSize(new Dimension(150, 50));
+        btn_redemption.setPreferredSize(new Dimension(200, 50));
 
         //Mid
         dashboard = new DashBoard_GUI();
@@ -177,10 +176,6 @@ public class MainGUI implements ActionListener, WindowListener {
             currentPanel = dashboard;
             fr.add(currentPanel);
 
-            //add money
-//            double money = 1500000;
-//            info.setCapital(money);
-//            info.setCurrent_money(money);
             // unshow buttons
             prev.setVisible(false);
             next.setVisible(false);
@@ -230,14 +225,15 @@ public class MainGUI implements ActionListener, WindowListener {
         } else if (e.getSource().equals(btn_seacrh)) {
             try {
                 if (currentPanel == customers) {
+                    btn_addmoney.setEnabled(true);
+                    btn_redeem.setEnabled(true);
+                    btn_payinterest.setEnabled(true);
                     System.out.println(search_id.getText());
-                    customers.Search(search_id.getText());
+                    customers.UpdateGUI(search_id.getText());
                     search_id.setText(null);
-                    System.out.println("Search");
                 } else {
                     redemption.Search(search_id.getText());
                     search_id.setText(null);
-                    System.out.println("Search");
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Please enter id!", "", JOptionPane.ERROR_MESSAGE);
@@ -245,19 +241,24 @@ public class MainGUI implements ActionListener, WindowListener {
 
         } else if (e.getSource().equals(btn_new_customer)) {
             new New_CustomerGUI(fr);
-        } else if (e.getSource().equals(prev)) {
+            
+        } else if (e.getSource().equals(prev) ) {
+            
             if (customers.getCurrent_customer() == null) {
-                customers.Search(-1);
+                customers.UpdateGUI(-1);
             }
             else {
-                customers.Search(customers.getCurrent_customer().getId()-1);
+                customers.UpdateGUI(customers.getCurrent_customer().getId()-1);
             }
         } else if (e.getSource().equals(next)) {
             if (customers.getCurrent_customer() == null) {
-                customers.Search(1);
+                customers.UpdateGUI(1);
+                btn_addmoney.setEnabled(true);
+                btn_redeem.setEnabled(true);
+                btn_payinterest.setEnabled(true);
             }
             else {
-                customers.Search(customers.getCurrent_customer().getId()+1);
+                customers.UpdateGUI(customers.getCurrent_customer().getId()+1);
             }
         }
         fr.revalidate();
@@ -271,6 +272,12 @@ public class MainGUI implements ActionListener, WindowListener {
             info = (Information) ois.readObject();
             ois.close();
             System.out.println("Load data");
+            
+            //add money
+            double money = 1500000;
+            info.setCapital(money);
+            info.setCurrent_money(money);
+            info.update_pawn();
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }

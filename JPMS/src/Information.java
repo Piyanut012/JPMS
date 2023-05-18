@@ -1,4 +1,6 @@
-
+import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.*;
 import java.io.*;
 
@@ -6,29 +8,31 @@ public final class Information implements Serializable{
     private double capital;
     private double current_money;
     private double loan;
-    private double pawn;
-    private double pawn_droppings;
-    private double pawn_sale;
+    private double profit;
+    private int pawn_goods;
+    private int pawn_droppings;
+    private int sold;
     private int id_item_all;
     private int id_customer_all;
-    private int id_item;
-    private int id_customer;
+    private int add_id_item;
+    private int add_id_customer;
     private LinkedHashMap<Integer ,Pawn_droppings> Pawn_droppings_data;
     private LinkedHashMap<Integer ,Customer> Customers_Data;
     
     public Information(){
-        this(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+        this(0.0, 0.0, 0.0, 0, 0, 0);
     }
 
-    public Information(double capital, double current_money, double loan, double pawn, double pawn_droppings, double pawn_sale) {
+    public Information(double capital, double current_money, double loan, int pawn, int pawn_droppings, int sold) {
         this.capital = capital;
         this.current_money = current_money;
         this.loan = loan;
-        this.pawn = pawn;
+        this.pawn_goods = pawn;
+        this.profit = current_money - capital;
         this.pawn_droppings = pawn_droppings;
-        this.pawn_sale = pawn_sale;
-        this.id_item = 0;
-        this.id_customer = 0;
+        this.sold = sold;
+        this.add_id_item = 0;
+        this.add_id_customer = 0;
         this.id_item_all = 0;
         this.id_customer_all = 0;
         this.Pawn_droppings_data = new LinkedHashMap<>();
@@ -44,7 +48,6 @@ public final class Information implements Serializable{
     }
 
     public double getCurrent_money() {
-        this.current_money = current_money - loan;
         return current_money;
     }
 
@@ -60,46 +63,44 @@ public final class Information implements Serializable{
         this.loan = loan;
     }
 
-    public double getPawn() {
-        return pawn;
+    public int getPawn_goods() {
+        return pawn_goods;
     }
-    public void setPawn(double pawn) {
-        this.pawn = pawn;
+    public void setPawn_goods(int pawn_goods) {
+        this.pawn_goods = pawn_goods;
     }
 
-    public double getPawn_droppings() {
+    public int getPawn_droppings() {
         return pawn_droppings;
     }
 
-    public void setPawn_droppings(double pawn_droppings) {
+    public void setPawn_droppings(int pawn_droppings) {
         this.pawn_droppings = pawn_droppings;
     }
 
-    public double getPawn_sale() {
-        return pawn_sale;
+    public int getSold() {
+        return sold;
     }
 
-    public void setPawn_sale(double pawn_sale) {
-        this.pawn_sale = pawn_sale;
+    public void setSold(int sold) {
+        this.sold = sold;
     }
 
-    public int getId_item() {
-        return ++id_item;
+    public int getAdd_id_item() {
+        return ++add_id_item;
     }
 
-    public void setId_item(int id_item) {
-        this.id_item = id_item;
+    public void setAdd_id_item(int add_id_item) {
+        this.add_id_item = add_id_item;
     }
 
-    public int getId_customer() {
-        return ++id_customer;
+    public int getAdd_id_customer() {
+        return ++add_id_customer;
     }
 
-    public void setId_customer(int id_customer) {
-        this.id_customer = id_customer;
+    public void setAdd_id_customer(int add_id_customer) {
+        this.add_id_customer = add_id_customer;
     }
-
-    
 
     public LinkedHashMap<Integer, Pawn_droppings> getPawn_droppings_data() {
         return Pawn_droppings_data;
@@ -118,7 +119,7 @@ public final class Information implements Serializable{
     }
     
     public int getId_item_all() {
-        id_item_all = id_item;
+        id_item_all = add_id_item;
         return id_item_all;
     }
 
@@ -127,14 +128,79 @@ public final class Information implements Serializable{
     }
 
     public int getId_customer_all() {
-        id_customer_all = id_customer;
+        id_customer_all = add_id_customer;
         return id_customer_all;
     }
 
     public void setId_customer_all(int id_customer_all) {
         this.id_customer_all = id_customer_all;
     }
+    
+    public double getProfit() {
+        this.profit = current_money - capital;
+        return profit;
+    }
 
+    public void setProfit(double profit) {
+        this.profit = profit;
+    }
+
+    public void update_pawn(){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        for (Customer cus : Customers_Data.values()) {
+            LinkedHashMap<Integer, Pawn> itemsData = cus.getItmes_data();
+            LinkedHashMap<Integer, Pawn> itemsToRemove = new LinkedHashMap<>();
+
+            for (Pawn itemss : itemsData.values()) {
+                LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
+                if (currentDateTime.isAfter(itemTime)) {
+                    Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
+                            itemss.getValue());
+                    Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
+                    cus.setLoan(cus.getLoan()-itemss.getValue());
+                    itemsToRemove.put(itemss.getID(), itemss);
+                }
+            }
+            itemsData.keySet().removeAll(itemsToRemove.keySet());
+        }
+    }
+    
+    public void update_customer(){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        for (Customer cus : Customers_Data.values()) {
+            LinkedHashMap<Integer, Pawn> itemsData = cus.getItmes_data();
+            LinkedHashMap<Integer, Pawn> itemsToRemove = new LinkedHashMap<>();
+
+            for (Pawn itemss : itemsData.values()) {
+                LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
+                if (currentDateTime.isAfter(itemTime)) {
+                    Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
+                            itemss.getValue());
+                    Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
+                    cus.setLoan(cus.getLoan()-itemss.getValue());
+                    itemsToRemove.put(itemss.getID(), itemss);
+                }
+            }
+            itemsData.keySet().removeAll(itemsToRemove.keySet());
+        }
+    }
 
     
+    public boolean checkloan(double total){
+        if (current_money-total < 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public void addcustomer(int id, Customer c, double total){
+        this.Customers_Data.put(id, c);
+        addpawngoods(c.getItmes_data().size(),total);   
+    }
+    
+    public void addpawngoods(int amount,double total){
+        this.current_money -= total;
+        this.loan += total;
+        this.pawn_goods += amount;
+    }
 }

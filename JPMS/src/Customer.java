@@ -10,7 +10,7 @@ public abstract class Customer implements Serializable{
     private String email;
     private String FB;
     private String IDline;
-    private double principle;
+    private double loan;
 //    private double interest;
     private LinkedHashMap<Integer, Pawn> itmes_data;
 
@@ -26,7 +26,7 @@ public abstract class Customer implements Serializable{
         this.email = email;
         this.FB = FB;
         this.IDline = IDline;
-        this.principle = 0;
+        this.loan = 0;
         this.itmes_data = new LinkedHashMap<>();
     }
 
@@ -86,12 +86,12 @@ public abstract class Customer implements Serializable{
         this.IDline = IDline;
     }
 
-    public double getPrinciple() {
-        return principle;
+    public double getLoan() {
+        return loan;
     }
 
-    public void setPrinciple(double principle) {
-        this.principle = principle;
+    public void setLoan(double loan) {
+        this.loan = loan;
     }
 
     public int getId() {
@@ -103,5 +103,5 @@ public abstract class Customer implements Serializable{
     }
     
     public abstract void Promotion();
-    public abstract boolean CheckLimit();
+    public abstract boolean CheckLimit(double total);
 }
