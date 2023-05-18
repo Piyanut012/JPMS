@@ -34,18 +34,18 @@ public class MainGUI implements ActionListener, WindowListener{
         //North
         north = new JPanel();
         north.setPreferredSize(new Dimension(1100, 200));
-//        north.setBorder(BorderFactory.createLineBorder(Color.RED));
+        north.setBorder(BorderFactory.createLineBorder(Color.RED));
         top = new JPanel();
         top.setLayout(new BorderLayout());
-//        top.setBorder(BorderFactory.createLineBorder(Color.RED));
+        top.setBorder(BorderFactory.createLineBorder(Color.RED));
         select_button = new JPanel();
-        select_button.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
-//        select_button.setBorder(BorderFactory.createLineBorder(Color.RED));
+        select_button.setLayout(new FlowLayout());
+        select_button.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //search
         search = new JPanel();
         search.setLayout(new FlowLayout());
-//        search.setBorder(BorderFactory.createLineBorder(Color.RED));
+        search.setBorder(BorderFactory.createLineBorder(Color.RED));
         search.setVisible(false);
         ImageIcon icon;
         BufferedImage image;
@@ -71,12 +71,12 @@ public class MainGUI implements ActionListener, WindowListener{
         head.setFont(new Font("Arial", Font.PLAIN, 20));
         head.setHorizontalAlignment(JLabel.CENTER);
         head.setPreferredSize(new Dimension(150, 0));
-//        head.setBorder(BorderFactory.createLineBorder(Color.RED));
+        head.setBorder(BorderFactory.createLineBorder(Color.RED));
         name = new JLabel("Piyanut  *");
         name.setFont(new Font("Arial", Font.PLAIN, 20));
         name.setHorizontalAlignment(JLabel.CENTER);
         name.setPreferredSize(new Dimension(150, 0));
-//        name.setBorder(BorderFactory.createLineBorder(Color.RED));
+        name.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         btn_dashboard = new JButton("DashBoard");
         btn_dashboard.setFont(new Font("Arial", Font.BOLD, 20));
@@ -95,18 +95,18 @@ public class MainGUI implements ActionListener, WindowListener{
         //East
         east = new JPanel();
         east.setPreferredSize(new Dimension(50, 500));
-//        east.setBorder(BorderFactory.createLineBorder(Color.RED));
+        east.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //West
         west = new JPanel();
         west.setPreferredSize(new Dimension(50, 500));
-//        west.setBorder(BorderFactory.createLineBorder(Color.RED));
+        west.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //South
         south = new JPanel();
         south.setLayout(new FlowLayout());
         south.setPreferredSize(new Dimension(1100, 100));
-//        south.setBorder(BorderFactory.createLineBorder(Color.RED));
+        south.setBorder(BorderFactory.createLineBorder(Color.RED));
         
         //Add Listener
         fr.addWindowListener(this);
@@ -181,15 +181,14 @@ public class MainGUI implements ActionListener, WindowListener{
         }else if (e.getSource().equals(btn_seacrh)){
             try{
                 if (currentPanel == customers){
-                    btn_addmoney.setEnabled(true);
-                    btn_redeem.setEnabled(true);
-                    btn_payinterest.setEnabled(true);
                     System.out.println(search_id.getText());
                     customers.Search(search_id.getText());
                     search_id.setText(null);
+                    System.out.println("Search");
                 }else{
                     redemption.Search(search_id.getText());
                     search_id.setText(null);
+                    System.out.println("Search");
                 }
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Please enter id!", "", JOptionPane.ERROR_MESSAGE);
@@ -210,7 +209,6 @@ public class MainGUI implements ActionListener, WindowListener{
             info = (Information) ois.readObject();
             ois.close();
             System.out.println("Load data");
-            info.update_pawn();
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }

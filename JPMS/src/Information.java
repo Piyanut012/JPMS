@@ -1,9 +1,6 @@
 
-import java.util.Calendar;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
-import java.time.Month;
 
 public final class Information implements Serializable{
     private double capital;
@@ -137,38 +134,7 @@ public final class Information implements Serializable{
     public void setId_customer_all(int id_customer_all) {
         this.id_customer_all = id_customer_all;
     }
-    public void update_pawn(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        for (Customer cus : Customers_Data.values()) {
-            LinkedHashMap<Integer, Pawn> itemsData = cus.getItmes_data();
-            LinkedHashMap<Integer, Pawn> itemsToRemove = new LinkedHashMap<>();
 
-            for (Pawn itemss : itemsData.values()) {
-                LocalDateTime itemTime = LocalDateTime.of(itemss.getYear(), itemss.getMonth(), itemss.getDate(), 0, 0);
-                if (currentDateTime.isBefore(itemTime)) {
-                    Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
-                            itemss.getValue());
-                    Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
-                    cus.setPrinciple(cus.getPrinciple()-itemss.getValue());
-                    itemsToRemove.put(itemss.getID(), itemss);
-                }
-            }
-
-            itemsData.keySet().removeAll(itemsToRemove.keySet());
-        }
-    
-//        LocalDateTime currentDateTime = LocalDateTime.now();
-//        for (Customer cus : Customers_Data.values()){
-//            for (Pawn itemss : cus.getItmes_data().values()){
-//                LocalDateTime item_time = LocalDateTime.of(itemss.getYear(), itemss.getMonth(), itemss.getDate(),0,0);
-//                if (currentDateTime.isBefore(item_time)){
-//                    Pawn_droppings new_pawn_drop = new Pawn_droppings(itemss.getID(), itemss.getName(), itemss.getValue());
-//                    Pawn_droppings_data.put(new_pawn_drop.getID(), new_pawn_drop);
-//                    cus.getItmes_data().remove(itemss.getID(), itemss);
-//                }
-//            }
-//        }
-    }
 
     
 }
