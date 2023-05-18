@@ -37,7 +37,7 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
         this.month = d.get(Calendar.MONTH);
         this.year = d.get(Calendar.YEAR);
     }
-    public abstract void CheckValue();
+    public abstract boolean CheckValue(double d);
     
 
     public int getDate() {
@@ -66,5 +66,11 @@ public abstract class Pawn extends Item implements Redeem, SendInterest{
     
     public String getStr_status(){
         return getDate() + "/" + getMonth() + "/" + getYear();
+    }
+    
+    public void setTest(int year, int  month, int date){
+        this.date = date;
+        this.month = month;
+        this.year = year;
     }
 }
