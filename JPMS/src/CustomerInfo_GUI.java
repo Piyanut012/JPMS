@@ -154,12 +154,8 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
 
             //Set Pawned Item
             panelContainer.removeAll();
+            System.out.println("Yes");
             itmes_data = current_customer.getItmes_data();
-            if (itmes_data.isEmpty()){
-                System.out.println("000");
-                setPawnedItem(0, "", 0.0, "", null);
-                return;
-            }
             for (Pawn p : itmes_data.values()) {
                 setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(), p.getImage());
             }

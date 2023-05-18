@@ -12,7 +12,6 @@ public class Button_PayInterest extends JButton implements ActionListener{
         this.current = c;
         this.setText("PayInterest");
         this.setPreferredSize(new Dimension(150, 75));
-        this.setEnabled(false);
     }
     
     @Override

@@ -18,7 +18,6 @@ public class Button_Sell extends JButton implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
-          
         Pawn_droppings_sell = gui.getPawn_droppings_sell();
         int i = 0;
         for (Integer id : Pawn_droppings_sell){

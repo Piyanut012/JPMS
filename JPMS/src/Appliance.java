@@ -17,12 +17,7 @@ public class Appliance extends Pawn{
     
     
     @Override
-    public boolean CheckValue(double d){
-        if (d > 50000){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void CheckValue(){
+        System.out.println("50000");
     }
 }

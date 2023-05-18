@@ -158,11 +158,6 @@ public class AddMoneyGUI implements ActionListener{
                 try{
                     double cost = Double.parseDouble(costField.getText());
                     total += cost;
-                    if (total >= 500000){
-                        JOptionPane.showMessageDialog(null, "Cannot cost more than 500000 ", "Category", JOptionPane.PLAIN_MESSAGE);
-                        x = 1;
-                        break;
-                    }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, nameField.getText() +" : Please enter a number", "Value", JOptionPane.PLAIN_MESSAGE);
                     x = 1;
@@ -184,20 +179,11 @@ public class AddMoneyGUI implements ActionListener{
                         ImageIcon image = array_image.get(num);
                         if (accessories.isSelected()){
                             Pawn ag = new AccessoryAndGem(MainGUI.getInfo().getId_item(), name, cost, image);
-                            temporary_pawn.add(ag);
-                            if (ag.CheckValue(cost)){
-                                JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 100000 in Accessories", "Category", JOptionPane.PLAIN_MESSAGE);
-                                x = 1;
-                            }
-                              
+                              temporary_pawn.add(ag);
 //                            current_customer.getItmes_data().put(ag.getID(), ag);
                         }else if (appliance.isSelected()){
                             Pawn a = new Appliance(MainGUI.getInfo().getId_item(), name, cost, image);
                              temporary_pawn.add(a);
-                             if (a.CheckValue(cost)){
-                                JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 50000 in Appliance", "Category", JOptionPane.PLAIN_MESSAGE);
-                                x = 1;
-                            }
 //                            current_customer.getItmes_data().put(ag.getID(), ag);
                         }else{
                             JOptionPane.showMessageDialog(null, name +" : Please select a category", "Category", JOptionPane.PLAIN_MESSAGE);

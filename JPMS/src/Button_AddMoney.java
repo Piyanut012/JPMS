@@ -12,7 +12,7 @@ public class Button_AddMoney extends JButton implements ActionListener{
         this.current = c;
         this.setText("AddMoney");
         this.setPreferredSize(new Dimension(150, 75));
-        this.setEnabled(false);
+//        this.setEnabled(false);
     }
     
     @Override
