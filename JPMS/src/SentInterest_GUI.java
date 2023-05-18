@@ -8,7 +8,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 
-public class SentInterest_GUI implements ActionListener, TableModelListener, SendInterest{
+public class SentInterest_GUI implements ActionListener, TableModelListener{
     private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame; 
@@ -24,10 +24,6 @@ public class SentInterest_GUI implements ActionListener, TableModelListener, Sen
     private DefaultTableModel model;
     private LinkedHashMap<Integer, Pawn> current_customer_allpawn;
     private ArrayList<Integer> id_pawn; 
-    private double total;
-    private int nowDate;
-    private int nowMonth;
-    private int nowYear;
 
     
     public SentInterest_GUI(JFrame pf, CustomerInfo_GUI cf){
@@ -102,8 +98,11 @@ public class SentInterest_GUI implements ActionListener, TableModelListener, Sen
     public void actionPerformed(ActionEvent ae){
         JButton btn = (JButton) ae.getSource();
         if(btn.equals(confirm)){
-            int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
+            int x = JOptionPane.showConfirmDialog(null, "Money", null, JOptionPane.YES_NO_OPTION);
             if(x == 0){
+                for (Integer id : id_pawn){
+                    current_customer_allpawn.get(id).SendInterest();
+                }
                 dialog.dispose();
             }
         }else if(btn.equals(cancel)){
@@ -127,11 +126,11 @@ public class SentInterest_GUI implements ActionListener, TableModelListener, Sen
             if (checked) {
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.add(id);
-                total += current_customer_allpawn.get(id).monthTime() * current_customer_allpawn.get(id).InterestPrice();
+
             }else{
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.remove(id);
-                total -= current_customer_allpawn.get(id).monthTime() *current_customer_allpawn.get(id).InterestPrice();
+
             }
         }
     }
