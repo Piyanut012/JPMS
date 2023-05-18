@@ -12,6 +12,7 @@ public class Button_Redeem extends JButton implements ActionListener{
         this.current = c;
         this.setText("Redeem");
         this.setPreferredSize(new Dimension(150, 75));
+        this.setEnabled(false);
     }
     
     @Override
