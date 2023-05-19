@@ -103,12 +103,14 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         JButton btn = (JButton) ae.getSource();
         if(btn.equals(confirm)){
             int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
+            int allvalue = 0;
             if(x == 0){
                 for(int p : id_pawn){
+                    allvalue += current_customer_allpawn.get(p).getValue();
                     current_customer_allpawn.remove(p);
                 }
-                MainGUI.getInfo().redeem(current_customer_allpawn.size(), total);
-                currentFrame.getCurrent_customer().setLoan(currentFrame.getCurrent_customer().getLoan() - total);
+                currentFrame.getCurrent_customer().setLoan(currentFrame.getCurrent_customer().getLoan() - allvalue);
+                MainGUI.getInfo().redeem(id_pawn.size(), total, allvalue);
                 currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
                 dialog.dispose();
             }

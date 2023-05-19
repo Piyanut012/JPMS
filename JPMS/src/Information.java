@@ -156,7 +156,7 @@ public final class Information implements Serializable{
             for (Pawn itemss : itemsData.values()) {
                 LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
                 //test
-                if (currentDateTime.isAfter(itemTime)) {
+                if (currentDateTime.isBefore(itemTime)) {
                     Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
                             itemss.getValue(), itemss.getImage());
                     Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
@@ -164,6 +164,8 @@ public final class Information implements Serializable{
                     itemsToRemove.put(itemss.getID(), itemss);
                 }
             }
+            this.pawn_goods -= itemsToRemove.size();
+            this.pawn_droppings += itemsToRemove.size();
             itemsData.keySet().removeAll(itemsToRemove.keySet());
         }
     }
@@ -213,9 +215,9 @@ public final class Information implements Serializable{
         this.sold += amount;
     }
     
-    public void redeem(int amount, double total){
+    public void redeem(int amount, double total, double allvalue){
         this.current_money += total;
-        this.loan -= total;
+        this.loan -= allvalue;
         this.pawn_goods -= amount;
     }
     

@@ -158,7 +158,7 @@ public class AddPawngoodsGUI implements ActionListener{
                 try{
                     double cost = Double.parseDouble(costField.getText());
                     total += cost;
-                    if (current_customer.CheckLimit(total)){
+                    if (current_customer.CheckLimit(current_customer.getLoan() + total)){
                         JOptionPane.showMessageDialog(null, "Cannot cost more than 500000 ", "Category", JOptionPane.PLAIN_MESSAGE);
                         x = 1;
                         break;

@@ -9,6 +9,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 public class MainGUI implements ActionListener, WindowListener {
 
     private final ImageIcon prevIcon = new ImageIcon("image/prev.png");
@@ -22,7 +30,7 @@ public class MainGUI implements ActionListener, WindowListener {
     private JInternalFrame currentPanel;
     private JLabel head, name, lb_search1;
     private JTextField search_id;
-    private JButton btn_dashboard, btn_customers, btn_redemption, btn_seacrh, btn_new_customer, prev, next;
+    private JButton btn_dashboard, btn_customers, btn_redemption, btn_seacrh, btn_new_customer, prev, next, btn_chart;
     private Button_Sell btn_sell;
     private Button_AddMoney btn_addmoney;
     private Button_SendInterest btn_payinterest;
@@ -39,18 +47,18 @@ public class MainGUI implements ActionListener, WindowListener {
         //North
         north = new JPanel();
         north.setPreferredSize(new Dimension(1100, 200));
-        north.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        north.setBorder(BorderFactory.createLineBorder(Color.RED));
         top = new JPanel();
         top.setLayout(new BorderLayout());
-        top.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        top.setBorder(BorderFactory.createLineBorder(Color.RED));
         select_button = new JPanel();
         select_button.setLayout(new FlowLayout());
-        select_button.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        select_button.setBorder(BorderFactory.createLineBorder(Color.RED));
 
         //search
         search = new JPanel();
         search.setLayout(new FlowLayout());
-        search.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        search.setBorder(BorderFactory.createLineBorder(Color.RED));
         search.setVisible(false);
         ImageIcon icon;
         BufferedImage image;
@@ -76,12 +84,12 @@ public class MainGUI implements ActionListener, WindowListener {
         head.setFont(new Font("Arial", Font.PLAIN, 20));
         head.setHorizontalAlignment(JLabel.CENTER);
         head.setPreferredSize(new Dimension(150, 0));
-        head.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        head.setBorder(BorderFactory.createLineBorder(Color.RED));
         name = new JLabel("Piyanut  *");
         name.setFont(new Font("Arial", Font.PLAIN, 20));
         name.setHorizontalAlignment(JLabel.CENTER);
         name.setPreferredSize(new Dimension(150, 0));
-        name.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        name.setBorder(BorderFactory.createLineBorder(Color.RED));
 
         btn_dashboard = new JButton("DashBoard");
         btn_dashboard.setFont(new Font("Arial", Font.BOLD, 20));
@@ -100,7 +108,7 @@ public class MainGUI implements ActionListener, WindowListener {
         //East
         east = new JPanel();
         east.setPreferredSize(new Dimension(50, 500));
-        east.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        east.setBorder(BorderFactory.createLineBorder(Color.RED));
         east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
         next = new JButton(nextIcon);
         east.add(Box.createVerticalGlue());
@@ -113,7 +121,7 @@ public class MainGUI implements ActionListener, WindowListener {
         //West
         west = new JPanel();
         west.setPreferredSize(new Dimension(50, 500));
-        west.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        west.setBorder(BorderFactory.createLineBorder(Color.RED));
         west.setLayout(new BoxLayout(west, BoxLayout.Y_AXIS));
         prev = new JButton(prevIcon);
         west.add(Box.createVerticalGlue());
@@ -127,7 +135,10 @@ public class MainGUI implements ActionListener, WindowListener {
         south = new JPanel();
         south.setLayout(new FlowLayout());
         south.setPreferredSize(new Dimension(1100, 100));
-        south.setBorder(BorderFactory.createLineBorder(Color.RED));
+//        south.setBorder(BorderFactory.createLineBorder(Color.RED));
+         btn_chart = new Button_Chart(fr,this);
+        btn_chart.addActionListener(this);
+        south.add(btn_chart);
 
         //Add Listener
         fr.addWindowListener(this);
@@ -175,6 +186,7 @@ public class MainGUI implements ActionListener, WindowListener {
             dashboard = new DashBoard_GUI();
             currentPanel = dashboard;
             fr.add(currentPanel);
+            south.add(btn_chart);
 
             // unshow buttons
             prev.setVisible(false);
@@ -274,9 +286,9 @@ public class MainGUI implements ActionListener, WindowListener {
             System.out.println("Load data");
             
             //add money
-            double money = 1500000;
-            info.setCapital(money);
-            info.setCurrent_money(money);
+//            double money = 1500000;
+//            info.setCapital(money);
+//            info.setCurrent_money(money);
             info.update_customer();
             info.update_pawngoods();
         } catch (IOException | ClassNotFoundException ex) {
@@ -324,9 +336,19 @@ public class MainGUI implements ActionListener, WindowListener {
         MainGUI.info = info;
     }
 
+    public JInternalFrame getCurrentPanel() {
+        return currentPanel;
+    }
+
+    public void setCurrentPanel(JInternalFrame currentPanel) {
+        this.currentPanel = currentPanel;
+    }
+    
+    
+
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
             e.printStackTrace();
         }
