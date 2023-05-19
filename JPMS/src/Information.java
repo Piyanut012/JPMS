@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.Period;
 
 public final class Information implements Serializable{
     private double capital;
@@ -145,7 +147,7 @@ public final class Information implements Serializable{
         this.profit = profit;
     }
 
-    public void update_pawn(){
+    public void update_pawngoods(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         for (Customer cus : Customers_Data.values()) {
             LinkedHashMap<Integer, Pawn> itemsData = cus.getItmes_data();
@@ -153,9 +155,10 @@ public final class Information implements Serializable{
 
             for (Pawn itemss : itemsData.values()) {
                 LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
+                //test
                 if (currentDateTime.isAfter(itemTime)) {
                     Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
-                            itemss.getValue());
+                            itemss.getValue(), itemss.getImage());
                     Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
                     cus.setLoan(cus.getLoan()-itemss.getValue());
                     itemsToRemove.put(itemss.getID(), itemss);
@@ -166,26 +169,25 @@ public final class Information implements Serializable{
     }
     
     public void update_customer(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        for (Customer cus : Customers_Data.values()) {
-            LinkedHashMap<Integer, Pawn> itemsData = cus.getItmes_data();
-            LinkedHashMap<Integer, Pawn> itemsToRemove = new LinkedHashMap<>();
-
-            for (Pawn itemss : itemsData.values()) {
-                LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
-                if (currentDateTime.isAfter(itemTime)) {
-                    Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
-                            itemss.getValue());
-                    Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
-                    cus.setLoan(cus.getLoan()-itemss.getValue());
-                    itemsToRemove.put(itemss.getID(), itemss);
-                }
-            }
-            itemsData.keySet().removeAll(itemsToRemove.keySet());
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    for (Customer cus : Customers_Data.values()) {
+        if (cus instanceof Old_Customer){
+            continue;
+        }
+        LocalDateTime CustomerTime = LocalDateTime.of(cus.getYear(), cus.getMonth(), cus.getDate(), 0, 0);
+        Period period = Period.between(CustomerTime.toLocalDate(), currentDateTime.toLocalDate());
+        int monthDifference = period.getMonths();
+        
+        if (monthDifference >= 5) {
+            System.out.println("Old");
+            Customer old_customer = new Old_Customer(cus.getId(), cus.getName(), cus.getPhone_number(), cus.getAddress(), cus.getEmail() ,cus.getFB(),
+                cus.getIDline(), cus.getLoan(), cus.getItmes_data(), cus.getDate(), cus.getMonth(), cus.getYear());
+            
+            Customers_Data.put(cus.getId(), old_customer);
         }
     }
+}
 
-    
     public boolean checkloan(double total){
         if (current_money-total < 0){
             return true;
@@ -202,5 +204,22 @@ public final class Information implements Serializable{
         this.current_money -= total;
         this.loan += total;
         this.pawn_goods += amount;
+    }
+    
+    public void sellpawndroppings(int amount, double total){
+        this.current_money += total;
+        this.loan -= total;
+        this.pawn_droppings -= amount;
+        this.sold += amount;
+    }
+    
+    public void redeem(int amount, double total){
+        this.current_money += total;
+        this.loan -= total;
+        this.pawn_goods -= amount;
+    }
+    
+    public void sentinterest(double total){
+        this.current_money += total;
     }
 }

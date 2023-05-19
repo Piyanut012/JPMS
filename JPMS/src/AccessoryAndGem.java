@@ -8,10 +8,12 @@ public class AccessoryAndGem extends Pawn{
 
     public AccessoryAndGem(int ID, String name, double value) {
         super(ID, name, value);
+        this.setCategory("AccessoryAndGem");
     }
 
     public AccessoryAndGem(int ID, String name, double value, ImageIcon image) {
         super(ID, name, value, image);
+        this.setCategory("AccessoryAndGem");
     }
     
     

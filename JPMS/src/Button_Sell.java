@@ -19,12 +19,22 @@ public class Button_Sell extends JButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Pawn_droppings_sell = gui.getPawn_droppings_sell();
-        int i = 0;
-        for (Integer id : Pawn_droppings_sell){
-            MainGUI.getInfo().getPawn_droppings_data().remove(id);
+        double total = gui.getTotal();
+        if (total == 0){
+            JOptionPane.showConfirmDialog(null, "Out of stock!", null, JOptionPane.PLAIN_MESSAGE);
+            return;
         }
-        gui.setTable(MainGUI.getInfo().getPawn_droppings_data());
-        System.out.println("Sell All");
+        int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
+            if(x == 0){
+                int i = 0;
+                for (Integer id : Pawn_droppings_sell){
+                    MainGUI.getInfo().getPawn_droppings_data().remove(id);
+                }
+                gui.setTable(MainGUI.getInfo().getPawn_droppings_data());
+                MainGUI.getInfo().sellpawndroppings(Pawn_droppings_sell.size(), total);
+                System.out.println("Sell All");
+            }
+      
     }
     
 }

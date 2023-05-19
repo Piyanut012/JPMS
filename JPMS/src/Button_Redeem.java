@@ -18,7 +18,6 @@ public class Button_Redeem extends JButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         new Redeem_GUI(parent, current);
-        System.out.println("Redeem");
     }
     
 }

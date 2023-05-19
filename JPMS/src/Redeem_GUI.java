@@ -8,7 +8,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 
-public class Redeem_GUI implements ActionListener, TableModelListener, SendInterest{
+public class Redeem_GUI implements ActionListener, TableModelListener{
      private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame; 
@@ -107,6 +107,7 @@ public class Redeem_GUI implements ActionListener, TableModelListener, SendInter
                 for(int p : id_pawn){
                     current_customer_allpawn.remove(p);
                 }
+                MainGUI.getInfo().redeem(current_customer_allpawn.size(), total);
                 currentFrame.getCurrent_customer().setLoan(currentFrame.getCurrent_customer().getLoan() - total);
                 currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
                 dialog.dispose();

@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.awt.event.*;
+import javax.swing.border.Border;
 
 public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
 
@@ -10,7 +11,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
     private final Font regFB = new Font("Century Gothic", Font.BOLD, 20);
     private ImageIcon image;
     private JPanel midPn, leftPn, rightPn, itemPn, cstPn, iteminfoPn, cstinfo1Pn, editcstPn;
-    private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemstatusLb, idLb, nameLb, telLb, adrsLb, mailLb, fbLb, lineLb, loanLb;
+    private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemcategory, itemstatusLb, idLb, nameLb, telLb, adrsLb, mailLb, fbLb, lineLb, loanLb;
     private Customer current_customer;
     private LinkedHashMap<Integer, Pawn> itmes_data;
     private JPanel panelContainer;
@@ -68,7 +69,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         panelContainer = new JPanel();
         panelContainer.setLayout(new BoxLayout(panelContainer, BoxLayout.Y_AXIS));
 
-        setPawnedItem(0, "", 0, "", null);
+        setPawnedItem(0, "", 0, "", "", null);
         idLb.setFont(regFB);
         nameLb.setFont(regF);
         telLb.setFont(regF);
@@ -157,11 +158,11 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             itmes_data = current_customer.getItmes_data();
             if (itmes_data.isEmpty()){
                 System.out.println("000");
-                setPawnedItem(0, "", 0.0, "", null);
+                setPawnedItem(0, "", 0.0, "","", null);
                 return;
             }
             for (Pawn p : itmes_data.values()) {
-                setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(), p.getImage());
+                setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(),p.getCategory(), p.getImage());
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Customer not found!", "", JOptionPane.ERROR_MESSAGE);
@@ -172,25 +173,28 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         UpdateGUI(kw+"");
     }
 
-    public void setPawnedItem(int id, String name, double price, String status, ImageIcon image) {
-        itemPn = new JPanel(new GridLayout(1, 2));
-        iteminfoPn = new JPanel(new GridLayout(4, 1));
+    public void setPawnedItem(int id, String name, double price, String status, String category, ImageIcon image) {
+        itemPn = new JPanel(new BorderLayout());
+        iteminfoPn = new JPanel(new GridLayout(5, 1));
         if (image == null){
            itempicLb = new JLabel("No Picture!", JLabel.CENTER);
            itempicLb.setFont(regF);
         }else{
            itempicLb = new JLabel(image); 
         }
+        itempicLb.setPreferredSize(new Dimension(250, 200));
         itemidLb = new JLabel("ID : " + id);
         itemnameLb = new JLabel("Name : " + name);
         itempriceLb = new JLabel("Price : " + price);
+        itemcategory = new JLabel("Category: " + category); 
         itemstatusLb = new JLabel("Status : " + status);
         iteminfoPn.add(itemidLb);
         iteminfoPn.add(itemnameLb);
         iteminfoPn.add(itempriceLb);
+        iteminfoPn.add(itemcategory);
         iteminfoPn.add(itemstatusLb);
         iteminfoPn.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
-        itemPn.add(itempicLb);
+        itemPn.add(itempicLb, BorderLayout.WEST);
         itemPn.add(iteminfoPn);
         itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
         itemLb.setFont(regFB);
@@ -198,6 +202,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         itemidLb.setFont(regFB);
         itemnameLb.setFont(regF);
         itempriceLb.setFont(regF);
+        itemcategory.setFont(regF);
         itemstatusLb.setFont(regF);
         panelContainer.add(itemPn);
     }

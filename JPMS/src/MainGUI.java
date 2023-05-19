@@ -25,7 +25,7 @@ public class MainGUI implements ActionListener, WindowListener {
     private JButton btn_dashboard, btn_customers, btn_redemption, btn_seacrh, btn_new_customer, prev, next;
     private Button_Sell btn_sell;
     private Button_AddMoney btn_addmoney;
-    private Button_PayInterest btn_payinterest;
+    private Button_SendInterest btn_payinterest;
     private Button_Redeem btn_redeem;
     private static Information info;
 
@@ -191,7 +191,7 @@ public class MainGUI implements ActionListener, WindowListener {
             //Add Button At South
             south.removeAll();
             btn_addmoney = new Button_AddMoney(fr, customers);
-            btn_payinterest = new Button_PayInterest(fr, customers);
+            btn_payinterest = new Button_SendInterest(fr, customers);
             btn_redeem = new Button_Redeem(fr, customers);
 
             btn_addmoney.addActionListener(btn_addmoney);
@@ -277,7 +277,8 @@ public class MainGUI implements ActionListener, WindowListener {
             double money = 1500000;
             info.setCapital(money);
             info.setCurrent_money(money);
-            info.update_pawn();
+            info.update_customer();
+            info.update_pawngoods();
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println(ex);
         }

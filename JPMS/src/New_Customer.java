@@ -9,8 +9,8 @@ public class New_Customer extends Customer{
     }
 
     @Override
-    public void Promotion(){
-        System.out.println("ProNew");
+    public double Promotion(){
+        return 0.5;
     }
 
     @Override
