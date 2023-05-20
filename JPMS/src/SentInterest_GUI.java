@@ -104,16 +104,6 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         if(btn.equals(confirm)){
             int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
             if(x == 0){
-                for(int p : id_pawn){
-                    current_customer_allpawn.get(p).SendInterest_complete();
-                }
-                if (currentFrame.getCurrent_customer() instanceof Old_Customer){
-                    Old_Customer old = (Old_Customer) currentFrame.getCurrent_customer();
-                    old.setSentinterest_amount(total);
-                }
-                MainGUI.getInfo().sentinterest(total);
-                currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
-
                 dialog.dispose();
             }
         }else if(btn.equals(cancel)){
@@ -132,20 +122,16 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
 
             // Get the value of the checkbox in the first column
             Boolean checked = (Boolean) model.getValueAt(row, col);
-            double pro;
+
             // If the checkbox was checked, print the name of the customer in the second column
             if (checked) {
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.add(id);
-                pro = currentFrame.getCurrent_customer().Promotion();
-                //test
-//                current_customer_allpawn.get(id).setTest(19,3);
-                total += current_customer_allpawn.get(id).InterestPrice(pro);
+                total += current_customer_allpawn.get(id).InterestPrice();
             }else{
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.remove(id);
-                pro = currentFrame.getCurrent_customer().Promotion();
-                total -= current_customer_allpawn.get(id).InterestPrice(pro);
+                total -= current_customer_allpawn.get(id).InterestPrice();
             }
         }
     }

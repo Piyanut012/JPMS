@@ -6,18 +6,18 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class pawn_droppings_GUI extends JInternalFrame implements TableModelListener{
+    
+    private final Color c4 = new Color(250, 237, 205);
     private JTable table;
     private JScrollPane sp;
     private DefaultTableModel model;
     private LinkedHashMap<Integer, Pawn_droppings> filteredData;
     private LinkedHashMap<Integer, Pawn_droppings> Pawn_droppings_data;
     private ArrayList<Integer> Pawn_droppings_sell;
-    private double total;
      
     public pawn_droppings_GUI(){
         Pawn_droppings_data = MainGUI.getInfo().getPawn_droppings_data();
         Pawn_droppings_sell = new ArrayList<>();
-        total = 0;
         
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1050, 500));
@@ -26,7 +26,7 @@ public class pawn_droppings_GUI extends JInternalFrame implements TableModelList
         this.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
         this.setVisible(true);
         
-        String[] columnNames = {"","ID", "Name", "Pirce"};
+        String[] columnNames = {"","ID", "Name", "Price"};
         Object[][] data = new Object[Pawn_droppings_data.size()][4];
         int i = 0;
         for (Pawn_droppings item : Pawn_droppings_data.values()){
@@ -53,7 +53,8 @@ public class pawn_droppings_GUI extends JInternalFrame implements TableModelList
         sp = new JScrollPane(table);
         // Add the scroll pane to the frame
         this.add(sp);
-        
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        table.setBackground(c4);
     }
     
     public void Search(String kw){
@@ -82,6 +83,14 @@ public class pawn_droppings_GUI extends JInternalFrame implements TableModelList
         table.repaint();
     }
 
+    public ArrayList<Integer> getPawn_droppings_sell() {
+        return Pawn_droppings_sell;
+    }
+
+    public void setPawn_droppings_sell(ArrayList<Integer> Pawn_droppings_sell) {
+        this.Pawn_droppings_sell = Pawn_droppings_sell;
+    }
+
     @Override
     public void tableChanged(TableModelEvent e) {
 
@@ -98,32 +107,14 @@ public class pawn_droppings_GUI extends JInternalFrame implements TableModelList
             if (checked) {
                 Integer id = (Integer) model.getValueAt(row, 1);
                 Pawn_droppings_sell.add(id);
-                total += MainGUI.getInfo().getPawn_droppings_data().get(id).getValue();
 
             }else{
                 Integer id = (Integer) model.getValueAt(row, 1);
                 Pawn_droppings_sell.remove(id);
-                total -= MainGUI.getInfo().getPawn_droppings_data().get(id).getValue();
+
             }
         }
     }
-    
-    public ArrayList<Integer> getPawn_droppings_sell() {
-        return Pawn_droppings_sell;
-    }
-
-    public void setPawn_droppings_sell(ArrayList<Integer> Pawn_droppings_sell) {
-        this.Pawn_droppings_sell = Pawn_droppings_sell;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
-    
     
 }
 

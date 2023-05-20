@@ -10,7 +10,7 @@ public class Button_PayInterest extends JButton implements ActionListener{
     public Button_PayInterest(JFrame fr, CustomerInfo_GUI c){
         this.parent = fr;
         this.current = c;
-        this.setText("PayInterest");
+        this.setText("Pay Interest");
         this.setPreferredSize(new Dimension(150, 75));
         this.setEnabled(false);
     }

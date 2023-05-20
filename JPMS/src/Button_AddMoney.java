@@ -10,7 +10,7 @@ public class Button_AddMoney extends JButton implements ActionListener{
     public Button_AddMoney(JFrame fr, CustomerInfo_GUI c){
         this.parent = fr;
         this.current = c;
-        this.setText("AddPawngoods");
+        this.setText("Add Loan");
         this.setPreferredSize(new Dimension(150, 75));
         this.setEnabled(false);
     }
@@ -18,6 +18,7 @@ public class Button_AddMoney extends JButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         new AddPawngoodsGUI(parent, current);
+        System.out.println("AddMoney");
     }
     
 }

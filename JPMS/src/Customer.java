@@ -11,10 +11,8 @@ public abstract class Customer implements Serializable{
     private String FB;
     private String IDline;
     private double loan;
+//    private double interest;
     private LinkedHashMap<Integer, Pawn> itmes_data;
-    private int date;
-    private int month;
-    private int year;
 
     public Customer(){
         this(0,"", "", "", "", "", "");
@@ -30,10 +28,6 @@ public abstract class Customer implements Serializable{
         this.IDline = IDline;
         this.loan = 0;
         this.itmes_data = new LinkedHashMap<>();
-        Calendar d = Calendar.getInstance();
-        this.date = d.get(Calendar.DATE);
-        this.month = d.get(Calendar.MONTH);
-        this.year = d.get(Calendar.YEAR);
     }
 
     public LinkedHashMap<Integer, Pawn> getItmes_data() {
@@ -107,33 +101,7 @@ public abstract class Customer implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
-
-    public int getDate() {
-        return date;
-    }
-
-    public void setDate(int date) {
-        this.date = date;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
     
-    
-    
-    public abstract double Promotion();
+    public abstract void Promotion();
     public abstract boolean CheckLimit(double total);
 }

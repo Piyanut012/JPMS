@@ -12,6 +12,7 @@ import javax.swing.*;
 public class DashBoard_GUI extends JInternalFrame{
     private final Font regF = new Font("Century Gothic", Font.PLAIN, 18);
     private final Font regFB = new Font("Century Gothic", Font.BOLD, 20);
+    private final Color c3 = new Color(250, 237, 205);
     private JPanel pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8,
             pl9, pl10, pl11, pl12, pl13, pl14, pl15, pl16, 
             pl17, pl18, pl19, pl20, pl21, pl22, pl23, pl24;
@@ -29,23 +30,23 @@ public class DashBoard_GUI extends JInternalFrame{
         pl7 = new JPanel(new BorderLayout());
         pl8 = new JPanel(new BorderLayout());
         
-        pl9 = new JPanel(new GridLayout(2, 1));
-        pl10 = new JPanel(new GridLayout(2, 1));
-        pl11 = new JPanel(new GridLayout(2, 1));
-        pl12 = new JPanel(new GridLayout(2, 1));
-        pl13 = new JPanel(new GridLayout(2, 1));
-        pl14 = new JPanel(new GridLayout(2, 1));
-        pl15 = new JPanel(new GridLayout(2, 1));
-        pl16 = new JPanel(new GridLayout(2, 1));
+        pl9 = new JPanel(new GridLayout(2, 1)); pl9.setBackground(c3);
+        pl10 = new JPanel(new GridLayout(2, 1)); pl10.setBackground(c3);
+        pl11 = new JPanel(new GridLayout(2, 1)); pl11.setBackground(c3);
+        pl12 = new JPanel(new GridLayout(2, 1)); pl12.setBackground(c3);
+        pl13 = new JPanel(new GridLayout(2, 1)); pl13.setBackground(c3);
+        pl14 = new JPanel(new GridLayout(2, 1)); pl14.setBackground(c3);
+        pl15 = new JPanel(new GridLayout(2, 1)); pl15.setBackground(c3);
+        pl16 = new JPanel(new GridLayout(2, 1)); pl16.setBackground(c3);
         
-        pl17 = new JPanel(new BorderLayout());
-        pl18 = new JPanel(new BorderLayout());
-        pl19 = new JPanel(new BorderLayout());
-        pl20 = new JPanel(new BorderLayout());
-        pl21 = new JPanel(new BorderLayout());
-        pl22 = new JPanel(new BorderLayout());
-        pl23 = new JPanel(new BorderLayout());
-        pl24 = new JPanel(new BorderLayout());
+        pl17 = new JPanel(new BorderLayout()); pl17.setBackground(c3);
+        pl18 = new JPanel(new BorderLayout()); pl18.setBackground(c3);
+        pl19 = new JPanel(new BorderLayout()); pl19.setBackground(c3);
+        pl20 = new JPanel(new BorderLayout()); pl20.setBackground(c3);
+        pl21 = new JPanel(new BorderLayout()); pl21.setBackground(c3);
+        pl22 = new JPanel(new BorderLayout()); pl22.setBackground(c3);
+        pl23 = new JPanel(new BorderLayout()); pl23.setBackground(c3);
+        pl24 = new JPanel(new BorderLayout()); pl24.setBackground(c3);
 
         ImageIcon icon;
         BufferedImage image;
@@ -92,7 +93,7 @@ public class DashBoard_GUI extends JInternalFrame{
         lb3.setFont(regFB);
         lb3.setForeground(Color.CYAN);
         
-        lb5 = new JLabel("CurrentMoney");
+        lb5 = new JLabel("Current Money");
         lb5.setFont(regF);
         lb6 = new JLabel(MainGUI.getInfo().getCurrent_money()+"");
         lb6.setFont(regFB);
@@ -110,13 +111,13 @@ public class DashBoard_GUI extends JInternalFrame{
         lb12.setFont(regFB);
         lb12.setForeground(Color.BLUE);
         
-        lb14 = new JLabel("Pawn goods");
+        lb14 = new JLabel("Pawn Goods");
         lb14.setFont(regF);
         lb15 = new JLabel(MainGUI.getInfo().getPawn_goods()+"");
         lb15.setFont(regFB);
         lb15.setForeground(Color.MAGENTA);
         
-        lb17 = new JLabel("Pawn droppings");
+        lb17 = new JLabel("Pawn Droppings");
         lb17.setFont(regF);
         lb18 = new JLabel(MainGUI.getInfo().getPawn_droppings()+"");
         lb18.setFont(regFB);
@@ -128,7 +129,7 @@ public class DashBoard_GUI extends JInternalFrame{
         lb21.setFont(regFB);
         lb21.setForeground(Color.GREEN);
         
-        lb23 = new JLabel("Sold");
+        lb23 = new JLabel("Sale");
         lb23.setFont(regF);
         lb24 = new JLabel(MainGUI.getInfo().getSold()+"");
         lb24.setFont(regFB);
@@ -176,15 +177,15 @@ public class DashBoard_GUI extends JInternalFrame{
 
         this.setLayout(new GridLayout(2,4));
         this.setPreferredSize(new Dimension(1050, 500));
-        this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        this.add(pl1);
-        this.add(pl2);
-        this.add(pl3);
-        this.add(pl7);
-        this.add(pl4);
-        this.add(pl5);
-        this.add(pl6);
-        this.add(pl8);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        this.add(pl1); pl1.setBackground(c3);
+        this.add(pl2); pl2.setBackground(c3);
+        this.add(pl3); pl3.setBackground(c3);
+        this.add(pl7); pl7.setBackground(c3);
+        this.add(pl4); pl4.setBackground(c3);
+        this.add(pl5); pl5.setBackground(c3);
+        this.add(pl6); pl6.setBackground(c3);
+        this.add(pl8); pl8.setBackground(c3);
         this.setFrameIcon(null);
         this.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
         this.setVisible(true);

@@ -8,7 +8,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 
-public class Redeem_GUI implements ActionListener, TableModelListener{
+public class Redeem_GUI implements ActionListener, TableModelListener, SendInterest{
      private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame; 
@@ -103,14 +103,11 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         JButton btn = (JButton) ae.getSource();
         if(btn.equals(confirm)){
             int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
-            int allvalue = 0;
             if(x == 0){
                 for(int p : id_pawn){
-                    allvalue += current_customer_allpawn.get(p).getValue();
                     current_customer_allpawn.remove(p);
                 }
-                currentFrame.getCurrent_customer().setLoan(currentFrame.getCurrent_customer().getLoan() - allvalue);
-                MainGUI.getInfo().redeem(id_pawn.size(), total, allvalue);
+                currentFrame.getCurrent_customer().setLoan(currentFrame.getCurrent_customer().getLoan() - total);
                 currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
                 dialog.dispose();
             }

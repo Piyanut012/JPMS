@@ -9,12 +9,10 @@ public class Appliance extends Pawn{
 
     public Appliance(int ID, String name, double value) {
         super(ID, name, value);
-        this.setCategory("Appliance");
     }
 
     public Appliance(int ID, String name, double value, ImageIcon image) {
         super(ID, name, value, image);
-        this.setCategory("Appliance");
     }
     
     
@@ -27,6 +25,4 @@ public class Appliance extends Pawn{
             return false;
         }
     }
-
-
 }

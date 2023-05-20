@@ -3,15 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
 import java.awt.event.*;
-import javax.swing.border.Border;
 
 public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
 
     private final Font regF = new Font("Century Gothic", Font.PLAIN, 18);
     private final Font regFB = new Font("Century Gothic", Font.BOLD, 20);
+    private final Color c2 = new Color(233, 237, 201);
+    private final Color c4 = new Color(250, 237, 205);
+    private final Color c5 = new Color(212, 163, 115);
     private ImageIcon image;
     private JPanel midPn, leftPn, rightPn, itemPn, cstPn, iteminfoPn, cstinfo1Pn, editcstPn;
-    private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemcategory, itemstatusLb, idLb, nameLb, telLb, adrsLb, mailLb, fbLb, lineLb, loanLb;
+    private JLabel itemLb, cinfoLb, itempicLb, itemidLb, itemnameLb, itempriceLb, itemstatusLb, idLb, nameLb, telLb, adrsLb, mailLb, fbLb, lineLb, loanLb;
     private Customer current_customer;
     private LinkedHashMap<Integer, Pawn> itmes_data;
     private JPanel panelContainer;
@@ -19,8 +21,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
     private JButton editBtn;
 
     public CustomerInfo_GUI() {
-      
-        
+
         midPn = new JPanel(new GridLayout(1, 2));
         leftPn = new JPanel(new BorderLayout());
         rightPn = new JPanel(new BorderLayout());
@@ -69,7 +70,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         panelContainer = new JPanel();
         panelContainer.setLayout(new BoxLayout(panelContainer, BoxLayout.Y_AXIS));
 
-        setPawnedItem(0, "", 0, "", "", null);
+        setPawnedItem(0, "", 0, "", null);
         idLb.setFont(regFB);
         nameLb.setFont(regF);
         telLb.setFont(regF);
@@ -79,12 +80,19 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         lineLb.setFont(regF);
         loanLb.setFont(regFB);
         nameTf.setFont(regF);
+        nameTf.setBackground(c4);
         telTf.setFont(regF);
+        telTf.setBackground(c4);
         adrsTf.setFont(regF);
+        adrsTf.setBackground(c4);
         mailTf.setFont(regF);
+        mailTf.setBackground(c4);
         fbTf.setFont(regF);
+        fbTf.setBackground(c4);
         lineTf.setFont(regF);
+        lineTf.setBackground(c4);
         loanTf.setFont(regFB);
+        loanTf.setBackground(c4);
 
         JScrollPane scroller = new JScrollPane(panelContainer);
         leftPn.add(scroller, BorderLayout.CENTER);
@@ -95,7 +103,9 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         cinfoLb.setHorizontalAlignment(SwingConstants.CENTER);
         editcstPn.setBorder(BorderFactory.createEmptyBorder(8, 10, 8, 10));
         cstinfo1Pn.add(idLb);
-        cstinfo1Pn.add(new JPanel());
+        JPanel pn = new JPanel();
+        pn.setBackground(c4);
+        cstinfo1Pn.add(pn);
         cstinfo1Pn.add(nameLb);
         cstinfo1Pn.add(nameTf);
         cstinfo1Pn.add(telLb);
@@ -115,8 +125,8 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         rightPn.add(cstPn, BorderLayout.CENTER);
         cstPn.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK));
 
-        leftPn.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        rightPn.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        leftPn.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        rightPn.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         midPn.add(leftPn);
         midPn.add(rightPn);
 
@@ -126,9 +136,16 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         // add to frame
         this.add(midPn, BorderLayout.CENTER);
 
+        // set clr
+        leftPn.setBackground(c5);
+        itemPn.setBackground(c4);
+        iteminfoPn.setBackground(c4);
+        editcstPn.setBackground(c5);
+        cstinfo1Pn.setBackground(c4);
+
         // show
         this.setPreferredSize(new Dimension(1050, 500));
-        this.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         this.setFrameIcon(null);
         this.putClientProperty("JInternalFrame.isPalette", Boolean.TRUE);
         this.setVisible(true);
@@ -141,7 +158,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             //Set Infomation Customer
             Customer currentcustomer = MainGUI.getInfo().getCustomers_Data().get(keyword);
             editBtn.setEnabled(true);
-            
+
             idLb.setText("ID : " + currentcustomer.getId());
             nameTf.setText(currentcustomer.getName());
             telTf.setText(currentcustomer.getPhone_number());
@@ -150,61 +167,61 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             fbTf.setText(currentcustomer.getFB());
             lineTf.setText(currentcustomer.getIDline());
             loanTf.setText(currentcustomer.getLoan() + "");
-            
+
             current_customer = currentcustomer;
 
             //Set Pawned Item
             panelContainer.removeAll();
             itmes_data = current_customer.getItmes_data();
-            if (itmes_data.isEmpty()){
+            if (itmes_data.isEmpty()) {
                 System.out.println("000");
-                setPawnedItem(0, "", 0.0, "","", null);
+                setPawnedItem(0, "", 0.0, "", null);
                 return;
             }
             for (Pawn p : itmes_data.values()) {
-                setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(),p.getCategory(), p.getImage());
+                setPawnedItem(p.getID(), p.getName(), p.getValue(), p.getStr_status(), p.getImage());
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Customer not found!", "", JOptionPane.ERROR_MESSAGE);
         }
 
     }
+
     public void UpdateGUI(int kw) {
-        UpdateGUI(kw+"");
+        UpdateGUI(kw + "");
     }
 
-    public void setPawnedItem(int id, String name, double price, String status, String category, ImageIcon image) {
-        itemPn = new JPanel(new BorderLayout());
-        iteminfoPn = new JPanel(new GridLayout(5, 1));
-        if (image == null){
-           itempicLb = new JLabel("No Picture!", JLabel.CENTER);
-           itempicLb.setFont(regF);
-        }else{
-           itempicLb = new JLabel(image); 
+    public void setPawnedItem(int id, String name, double price, String status, ImageIcon image) {
+        itemPn = new JPanel(new GridLayout(1, 2));
+        iteminfoPn = new JPanel(new GridLayout(4, 1));
+        if (image == null) {
+            itempicLb = new JLabel("No Picture!", JLabel.CENTER);
+            itempicLb.setFont(regF);
+        } else {
+            itempicLb = new JLabel(image);
         }
-        itempicLb.setPreferredSize(new Dimension(250, 200));
         itemidLb = new JLabel("ID : " + id);
         itemnameLb = new JLabel("Name : " + name);
         itempriceLb = new JLabel("Price : " + price);
-        itemcategory = new JLabel("Category: " + category); 
         itemstatusLb = new JLabel("Status : " + status);
         iteminfoPn.add(itemidLb);
         iteminfoPn.add(itemnameLb);
         iteminfoPn.add(itempriceLb);
-        iteminfoPn.add(itemcategory);
         iteminfoPn.add(itemstatusLb);
         iteminfoPn.setBorder(BorderFactory.createEmptyBorder(60, 20, 60, 20));
-        itemPn.add(itempicLb, BorderLayout.WEST);
+        itemPn.add(itempicLb);
         itemPn.add(iteminfoPn);
-        itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
+        itemPn.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, Color.BLACK));
         itemLb.setFont(regFB);
         cinfoLb.setFont(regFB);
         itemidLb.setFont(regFB);
         itemnameLb.setFont(regF);
         itempriceLb.setFont(regF);
-        itemcategory.setFont(regF);
         itemstatusLb.setFont(regF);
         panelContainer.add(itemPn);
+        leftPn.setBackground(c5);
+        itemPn.setBackground(c4);
+        iteminfoPn.setBackground(c4);
     }
 
     boolean notEditing = true;
@@ -221,7 +238,7 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             fbTf.setEditable(notEditing);
             lineTf.setEditable(notEditing);
 //            loanTf.setEditable(notEditing);
-            
+
             current_customer = MainGUI.getInfo().getCustomers_Data().get(current_customer.getId());
             current_customer.setName(nameTf.getText());
             current_customer.setPhone_number(telTf.getText());
@@ -231,6 +248,14 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             current_customer.setIDline(lineTf.getText());
 //            customer.setPrinciple(Double.parseDouble(loanTf.getText()));
             current_customer.setName(nameTf.getText());
+            
+            nameTf.setBackground(c4);
+            telTf.setBackground(c4);
+            adrsTf.setBackground(c4);
+            mailTf.setBackground(c4);
+            fbTf.setBackground(c4);
+            lineTf.setBackground(c4);
+            loanTf.setBackground(c4);
         } else {
             notEditing = !notEditing;
             editBtn.setText("Save");
@@ -241,6 +266,13 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
             fbTf.setEditable(notEditing);
             lineTf.setEditable(notEditing);
 //            loanTf.setEditable(notEditing);
+            nameTf.setBackground(Color.WHITE);
+            telTf.setBackground(Color.WHITE);
+            adrsTf.setBackground(Color.WHITE);
+            mailTf.setBackground(Color.WHITE);
+            fbTf.setBackground(Color.WHITE);
+            lineTf.setBackground(Color.WHITE);
+            loanTf.setBackground(Color.WHITE);
         }
     }
 
@@ -251,5 +283,5 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
     public void setCurrent_customer(Customer current_customer) {
         this.current_customer = current_customer;
     }
-    
+
 }
