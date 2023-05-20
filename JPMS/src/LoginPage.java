@@ -4,13 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import com.formdev.flatlaf.FlatIntelliJLaf;
 
 public class LoginPage implements ActionListener {
 
     private final Font JPMSFont = new Font("Bauhaus 93", Font.PLAIN, 60);
     private final Font regFont = new Font("Century Gothic", Font.BOLD, 16);
-    private final Color leftColor = new Color(171, 120, 48);
-    private final Color rightColor = new Color(230, 184, 69);
+    private final Color c4 = new Color(250, 237, 205);
+    private final Color c5 = new Color(212, 163, 115);
     private JFrame mainFr;
     private JPanel rightPn, mainPn, btnPn;
     private JTextField userTf;
@@ -39,7 +40,7 @@ public class LoginPage implements ActionListener {
         passLb = new JLabel("Password :");
 
         // left side, logo and name
-        JPMSLb.setBackground(leftColor);
+        JPMSLb.setBackground(c5);
         JPMSLb.setOpaque(true);
         JPMSLb.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         JPMSLb.setIcon(logo);
@@ -51,9 +52,9 @@ public class LoginPage implements ActionListener {
         JPMSLb.setVerticalTextPosition(JLabel.BOTTOM);
 
         // right side, username n paswsword
-        rightPn.setBackground(rightColor);
-        mainPn.setBackground(rightColor);
-        btnPn.setBackground(rightColor);
+        rightPn.setBackground(c4);
+        mainPn.setBackground(c4);
+        btnPn.setBackground(c4);
         rightPn.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPn.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
         mainPn.add(userLb);
@@ -74,10 +75,10 @@ public class LoginPage implements ActionListener {
         cancelBtn.setFont(regFont);
         loginBtn.setPreferredSize(new Dimension(120, 35));
         cancelBtn.setPreferredSize(new Dimension(80, 35));
-        loginBtn.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color.BLACK));
-        cancelBtn.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.WHITE, Color.BLACK));
-        loginBtn.setBackground(rightColor);
-        cancelBtn.setBackground(rightColor);
+                loginBtn.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.GRAY, Color.BLACK));
+        cancelBtn.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.GRAY, Color.BLACK));
+        loginBtn.setBackground(c4);
+        cancelBtn.setBackground(c4);
 
         loginBtn.addActionListener(this);
         cancelBtn.addActionListener(this);
@@ -102,6 +103,11 @@ public class LoginPage implements ActionListener {
         String password = new String(passTf.getPassword());
         if (ae.getSource().equals(loginBtn)) {
             if (username.equals("admin") && (password.equals("12345"))) {
+                try {
+                    UIManager.setLookAndFeel(new FlatIntelliJLaf());
+                } catch (Exception ex) {
+                    System.err.println("Failed to initialize LaF");
+                }
                 new MainGUI();
                 mainFr.dispose();
             } else {
@@ -113,6 +119,11 @@ public class LoginPage implements ActionListener {
         }
     }
     public static void main(String[] args) {
+         try {
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
         new LoginPage();
     }
 }

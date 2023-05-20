@@ -8,17 +8,17 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-
 import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
-import com.formdev.flatlaf.themes.FlatMacLightLaf;
+
 
 public class MainGUI implements ActionListener, WindowListener {
 
+    private final Color c1 = new Color(204, 213, 174);
+    private final Color c2 = new Color(233, 237, 201);
+    private final Color c3 = new Color(254, 250, 224);
+    private final Color c4 = new Color(250, 237, 205);
+    private final Color c5 = new Color(212, 163, 115);
+    private final Font regF = new Font("Century Gothic", Font.PLAIN, 18);
     private final ImageIcon prevIcon = new ImageIcon("image/prev.png");
     private final ImageIcon nextIcon = new ImageIcon("image/next.png");
     private JFrame fr;
@@ -32,7 +32,8 @@ public class MainGUI implements ActionListener, WindowListener {
     private JTextField search_id;
     private JButton btn_dashboard, btn_customers, btn_redemption, btn_seacrh, btn_new_customer, prev, next, btn_chart;
     private Button_Sell btn_sell;
-    private Button_AddMoney btn_addmoney;
+    private Button_SelectAll btn_selectall;
+    private Button_AddPawngoods btn_addmoney;
     private Button_SendInterest btn_payinterest;
     private Button_Redeem btn_redeem;
     private static Information info;
@@ -40,26 +41,29 @@ public class MainGUI implements ActionListener, WindowListener {
     public MainGUI() {
 
         info = new Information();
-        fr = new JFrame("JPSM");
+        fr = new JFrame("JPMS");
         fr.setSize(1100, 800);
         fr.setLocation(100, 100);
 
         //North
         north = new JPanel();
         north.setPreferredSize(new Dimension(1100, 200));
-//        north.setBorder(BorderFactory.createLineBorder(Color.RED));
+
         top = new JPanel();
         top.setLayout(new BorderLayout());
-//        top.setBorder(BorderFactory.createLineBorder(Color.RED));
+
         select_button = new JPanel();
         select_button.setLayout(new FlowLayout());
-//        select_button.setBorder(BorderFactory.createLineBorder(Color.RED));
+        select_button.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        north.setBackground(c3);
+        top.setBackground(c5);
+        select_button.setBackground(c4);
 
         //search
         search = new JPanel();
         search.setLayout(new FlowLayout());
-//        search.setBorder(BorderFactory.createLineBorder(Color.RED));
         search.setVisible(false);
+        search.setBackground(c3);
         ImageIcon icon;
         BufferedImage image;
         try {
@@ -72,33 +76,34 @@ public class MainGUI implements ActionListener, WindowListener {
             image = ImageIO.read(new File("image/addcustomer.png"));
             icon = new ImageIcon(image);
             btn_new_customer = new JButton(icon);
-            btn_new_customer.setPreferredSize(new Dimension(150, 55));
+            btn_new_customer.setPreferredSize(new Dimension(150, 50));
+            btn_seacrh.setPreferredSize(new Dimension(75, 50));
         } catch (IOException ex) {
             Logger.getLogger(DashBoard_GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         search_id = new JTextField();
-        search_id.setFont(new Font("Arial", Font.PLAIN, 20));
-        search_id.setPreferredSize(new Dimension(700, 40));
+        search_id.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+        search_id.setPreferredSize(new Dimension(500, 45));
 
-        head = new JLabel("JPSM");
-        head.setFont(new Font("Arial", Font.PLAIN, 20));
+         head = new JLabel("JPMS");
+        head.setFont(new Font("Bauhaus 93", Font.PLAIN, 60));
         head.setHorizontalAlignment(JLabel.CENTER);
+        head.setVerticalAlignment(JLabel.TOP);
         head.setPreferredSize(new Dimension(150, 0));
-//        head.setBorder(BorderFactory.createLineBorder(Color.RED));
+
         name = new JLabel("Piyanut  *");
-        name.setFont(new Font("Arial", Font.PLAIN, 20));
+        name.setFont(new Font("Century Gothic", Font.PLAIN, 20));
         name.setHorizontalAlignment(JLabel.CENTER);
         name.setPreferredSize(new Dimension(150, 0));
-//        name.setBorder(BorderFactory.createLineBorder(Color.RED));
 
-        btn_dashboard = new JButton("DashBoard");
-        btn_dashboard.setFont(new Font("Arial", Font.BOLD, 20));
-        btn_dashboard.setPreferredSize(new Dimension(150, 50));
+        btn_dashboard = new JButton("Dashboard");
+        btn_dashboard.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        btn_dashboard.setPreferredSize(new Dimension(200, 50));
         btn_customers = new JButton("Customers");
-        btn_customers.setFont(new Font("Arial", Font.BOLD, 20));
-        btn_customers.setPreferredSize(new Dimension(150, 50));
-        btn_redemption = new JButton("PawnDroppings");
-        btn_redemption.setFont(new Font("Arial", Font.BOLD, 20));
+        btn_customers.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        btn_customers.setPreferredSize(new Dimension(200, 50));
+        btn_redemption = new JButton("Pawn Droppings");
+        btn_redemption.setFont(new Font("Century Gothic", Font.BOLD, 20));
         btn_redemption.setPreferredSize(new Dimension(200, 50));
 
         //Mid
@@ -108,14 +113,14 @@ public class MainGUI implements ActionListener, WindowListener {
         //East
         east = new JPanel();
         east.setPreferredSize(new Dimension(50, 500));
-//        east.setBorder(BorderFactory.createLineBorder(Color.RED));
         east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
         next = new JButton(nextIcon);
         east.add(Box.createVerticalGlue());
         east.add(next);
         east.add(Box.createVerticalGlue());
+        east.setBackground(c3);
         next.setVisible(false);
-        next.setHorizontalAlignment(SwingConstants.CENTER);
+        next.setVerticalAlignment(SwingConstants.CENTER);
         next.setPreferredSize(new Dimension(40, 100));
 
         //West
@@ -127,18 +132,20 @@ public class MainGUI implements ActionListener, WindowListener {
         west.add(Box.createVerticalGlue());
         west.add(prev);
         west.add(Box.createVerticalGlue());
+        west.setBackground(c3);
         prev.setVisible(false);
         prev.setVerticalAlignment(SwingConstants.CENTER);
         prev.setPreferredSize(new Dimension(40, 100));
 
         //South
         south = new JPanel();
-        south.setLayout(new FlowLayout());
+        south.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         south.setPreferredSize(new Dimension(1100, 100));
-//        south.setBorder(BorderFactory.createLineBorder(Color.RED));
-         btn_chart = new Button_Chart(fr,this);
+        south.setBackground(c1);
+        btn_chart = new Button_Chart(fr,this);
         btn_chart.addActionListener(this);
         south.add(btn_chart);
+        
 
         //Add Listener
         fr.addWindowListener(this);
@@ -173,7 +180,7 @@ public class MainGUI implements ActionListener, WindowListener {
         fr.add(currentPanel);
 
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setResizable(false);
+        fr.setResizable(true);
         fr.setVisible(true);
     }
 
@@ -202,9 +209,16 @@ public class MainGUI implements ActionListener, WindowListener {
 
             //Add Button At South
             south.removeAll();
-            btn_addmoney = new Button_AddMoney(fr, customers);
+            btn_addmoney = new Button_AddPawngoods(fr, customers);
             btn_payinterest = new Button_SendInterest(fr, customers);
             btn_redeem = new Button_Redeem(fr, customers);
+            
+            btn_addmoney.setFont(regF);
+            btn_addmoney.setPreferredSize(new Dimension(200, 50));
+            btn_payinterest.setFont(regF);
+            btn_payinterest.setPreferredSize(new Dimension(200, 50));
+            btn_redeem.setFont(regF);
+            btn_redeem.setPreferredSize(new Dimension(200, 50));
 
             btn_addmoney.addActionListener(btn_addmoney);
             btn_payinterest.addActionListener(btn_payinterest);
@@ -228,8 +242,16 @@ public class MainGUI implements ActionListener, WindowListener {
             //Add Button At South
             south.removeAll();
             btn_sell = new Button_Sell((pawn_droppings_GUI) currentPanel);
+            btn_sell.setFont(regF);
+            btn_sell.setPreferredSize(new Dimension(200, 50));
+            
+            btn_selectall = new Button_SelectAll((pawn_droppings_GUI) currentPanel);
+            btn_selectall.setFont(regF);
+            btn_selectall.setPreferredSize(new Dimension(200, 50));
+            
+            south.add(btn_selectall);
             south.add(btn_sell);
-
+            
             // unshow buttons
             prev.setVisible(false);
             next.setVisible(false);
@@ -285,10 +307,10 @@ public class MainGUI implements ActionListener, WindowListener {
             ois.close();
             System.out.println("Load data");
             
-            //add money
-//            double money = 1500000;
-//            info.setCapital(money);
-//            info.setCurrent_money(money);
+            //test add money 
+            double money = 1500000;
+            info.setCapital(money);
+            info.setCurrent_money(money);
             info.update_customer();
             info.update_pawngoods();
         } catch (IOException | ClassNotFoundException ex) {
@@ -348,14 +370,11 @@ public class MainGUI implements ActionListener, WindowListener {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-        } catch (Exception e) {
-            e.printStackTrace();
+            UIManager.setLookAndFeel(new FlatIntelliJLaf());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
         }
-        SwingUtilities.invokeLater(() -> {
-            new MainGUI();
-        });
-//        new MainGUI();
+        new MainGUI();
     }
 
 }

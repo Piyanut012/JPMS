@@ -1,7 +1,6 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 import javax.swing.*;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.TableModelEvent;
@@ -20,11 +19,11 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
     private JScrollPane scroll;
     private JButton confirm;
     private JButton cancel;
+    private JButton selectAll;
     private JCheckBox box;
     private DefaultTableModel model;
     private LinkedHashMap<Integer, Pawn> current_customer_allpawn;
-    private ArrayList<Integer> id_pawn; 
-    private double total;
+    private HashSet<Integer> id_pawn; 
     private int nowDate;
     private int nowMonth;
     private int nowYear;
@@ -34,7 +33,7 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         parentFrame = pf;
         currentFrame = cf;
         current_customer_allpawn =  currentFrame.getCurrent_customer().getItmes_data();
-        id_pawn = new ArrayList<>();
+        id_pawn = new HashSet<>();
         
         dialog = new JDialog(parentFrame, "SetInterest", true);
         dialog.setLayout(new BorderLayout());
@@ -56,7 +55,8 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         confirm.addActionListener(this);
         cancel = new JButton("Cancel");
         cancel.addActionListener(this);
-        
+        selectAll = new JButton("Select All");
+        selectAll.addActionListener(this);
         
         String[] columnNames = {"","ID", "Name", "Pirce", "Status"};
         Object[][] data = new Object[current_customer_allpawn.size()][5];
@@ -82,6 +82,7 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         checkboxColumn.setMinWidth(50);
         scroll.setViewportView(table);
         
+        panel3.add(selectAll);
         panel3.add(confirm);
         panel3.add(cancel);
         panel2.add(panel3);
@@ -101,6 +102,14 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
     @Override
     public void actionPerformed(ActionEvent ae){
         JButton btn = (JButton) ae.getSource();
+        //total
+        double pro;
+        double total = 0;
+        for(int p : id_pawn){
+            pro = currentFrame.getCurrent_customer().Promotion();
+            total += current_customer_allpawn.get(p).InterestPrice(pro);
+        }
+        
         if(btn.equals(confirm)){
             int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
             if(x == 0){
@@ -118,6 +127,18 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
             }
         }else if(btn.equals(cancel)){
             dialog.dispose();
+        }else if(btn.getText().equals("Select All")){
+            int rowCount = table.getRowCount();
+            for(int i = 0; i < rowCount; i++){
+                table.setValueAt(true, i, 0);
+            }
+            btn.setText("Clear All");
+        }else if(btn.getText().equals("Clear All")){
+            int rowCount = table.getRowCount();
+            for(int i = 0; i < rowCount; i++){
+                table.setValueAt(false, i, 0);
+            }
+            btn.setText("Select All");
         }
     }
 
@@ -132,20 +153,15 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
 
             // Get the value of the checkbox in the first column
             Boolean checked = (Boolean) model.getValueAt(row, col);
-            double pro;
             // If the checkbox was checked, print the name of the customer in the second column
             if (checked) {
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.add(id);
-                pro = currentFrame.getCurrent_customer().Promotion();
-                //test
-//                current_customer_allpawn.get(id).setTest(19,3);
-                total += current_customer_allpawn.get(id).InterestPrice(pro);
+
             }else{
                 Integer id = (Integer) model.getValueAt(row, 1);
                 id_pawn.remove(id);
-                pro = currentFrame.getCurrent_customer().Promotion();
-                total -= current_customer_allpawn.get(id).InterestPrice(pro);
+
             }
         }
     }
