@@ -11,6 +11,10 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class AddPawngoodsGUI implements ActionListener{
+    
+    private final Font regF = new Font("Century Gothic", Font.PLAIN, 14);
+    private final Color c4 = new Color(250, 237, 205);
+    private final Color c3 = new Color(254, 250, 224);
     private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame;
@@ -29,15 +33,15 @@ public class AddPawngoodsGUI implements ActionListener{
         parentFrame = pf;
         currentFrame = cf;
         current_customer = currentFrame.getCurrent_customer();
-        dialog = new JDialog(parentFrame, "AddPawngoods", true);
-        top = new JPanel();
+        dialog = new JDialog(parentFrame, "Add Pawngoods", true);
+        top = new JPanel(); top.setBackground(c4);
         mid = new JPanel();
         panel = new JPanel();
-        low = new JPanel();
-        lb1 = new JLabel("pawn goods");
-        ok = new JButton("OK");
-        cancel = new JButton("Cancel");
-        add = new JButton("+");
+        low = new JPanel(); low.setBackground(c4);
+        lb1 = new JLabel("Pawn Goods"); lb1.setFont(regF);
+        ok = new JButton("OK"); ok.setFont(regF);
+        cancel = new JButton("Cancel"); cancel.setFont(regF);
+        add = new JButton("+"); add.setFont(regF);
         
         ok.addActionListener(this);
         cancel.addActionListener(this);
@@ -63,7 +67,7 @@ public class AddPawngoodsGUI implements ActionListener{
         dialog.add(low, BorderLayout.SOUTH);
         dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dialog.setLocationRelativeTo(parentFrame);
-        dialog.setSize(350, 230);
+        dialog.setSize(350, 260);
         dialog.setResizable(false);
         dialog.setVisible(true);
         
@@ -72,11 +76,12 @@ public class AddPawngoodsGUI implements ActionListener{
         JPanel pa = new JPanel();
         pa.setPreferredSize(new Dimension(250,150));
         pa.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        JPanel pa2 = new JPanel();
-        JPanel pa3 = new JPanel();
+        JPanel pa2 = new JPanel(); pa2.setBackground(c3);
+        JPanel pa3 = new JPanel(); pa3.setBackground(c3);
         pa.setLayout(new BorderLayout());
         pa2.setLayout(new GridLayout(4,2));
-        JLabel label = new JLabel("Click to add image");
+        pa2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        JLabel label = new JLabel("Click to Add Image"); label.setFont(regF);
         label.setBorder(BorderFactory.createLineBorder(Color.RED));
         array_image.add(null);
         label.addMouseListener(new MouseAdapter(){
@@ -114,16 +119,16 @@ public class AddPawngoodsGUI implements ActionListener{
             
             });
         pa3.add(label);
-        JLabel lab1 = new JLabel("Name :");
-        JLabel lab2 = new JLabel("Cost :");
-        JLabel cater = new JLabel("category");
-        JTextField name = new JTextField();
-        JTextField cost = new JTextField();
+        JLabel lab1 = new JLabel("Name :"); lab1.setFont(regF);
+        JLabel lab2 = new JLabel("Cost :"); lab2.setFont(regF);
+        JLabel cater = new JLabel("Category :"); cater.setFont(regF);
+        JTextField name = new JTextField(); name.setFont(regF);
+        JTextField cost = new JTextField(); cost.setFont(regF);
         ButtonGroup grop = new ButtonGroup();
-        JRadioButton accessories = new JRadioButton("accessories");
-        JRadioButton appliance = new JRadioButton("appliance");
-        grop.add(accessories);
-        grop.add(appliance);
+        JRadioButton accessories = new JRadioButton("Accessory");
+        JRadioButton appliance = new JRadioButton("Appliance");
+        grop.add(accessories); accessories.setFont(regF);
+        grop.add(appliance); appliance.setFont(regF);
 
         pa2.add(lab1);
         pa2.add(name);

@@ -10,35 +10,34 @@ import javax.imageio.ImageIO;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class New_AddPawngoodsGUI implements ActionListener{
-    
-    private final Font regF = new Font("Century Gothic", Font.PLAIN, 14);
-    private final Color c4 = new Color(250, 237, 205);
-    private final Color c3 = new Color(254, 250, 224);
+public class AddMoneyGUI implements ActionListener{
     private JDialog dialog;
-    private JDialog parentDialog;
+    private JFrame parentFrame;
+    private CustomerInfo_GUI currentFrame;
     private JPanel top,mid,panel,low;
     private JLabel lb1;
     private JButton ok, cancel, add;
     private ArrayList<JPanel> array;
-    private Customer new_customer;
+    private Customer current_customer;
     private ArrayList<ImageIcon> array_image;
+    private ArrayList<Pawn> temporary_pawn;
 
-    public New_AddPawngoodsGUI(JDialog parentdialog, Customer c){
-        new_customer = c;
-        array = new ArrayList<JPanel>();
+    public AddMoneyGUI(JFrame pf, CustomerInfo_GUI cf){
+        array = new ArrayList<>();
         array_image = new ArrayList<>();
-
-        this.parentDialog = parentdialog;
-        dialog = new JDialog(parentDialog, "Add Pawngoods", true);
-        top = new JPanel(); top.setBackground(c4);
+        temporary_pawn = new ArrayList<>();
+        parentFrame = pf;
+        currentFrame = cf;
+        current_customer = currentFrame.getCurrent_customer();
+        dialog = new JDialog(parentFrame, "AddPawngoods", true);
+        top = new JPanel();
         mid = new JPanel();
         panel = new JPanel();
-        low = new JPanel(); low.setBackground(c4);
-        lb1 = new JLabel("Pawn Goods"); lb1.setFont(regF);
-        ok = new JButton("OK"); ok.setFont(regF);
-        cancel = new JButton("Cancel"); cancel.setFont(regF);
-        add = new JButton("+"); add.setFont(regF);
+        low = new JPanel();
+        lb1 = new JLabel("pawn goods");
+        ok = new JButton("OK");
+        cancel = new JButton("Cancel");
+        add = new JButton("+");
         
         ok.addActionListener(this);
         cancel.addActionListener(this);
@@ -63,8 +62,8 @@ public class New_AddPawngoodsGUI implements ActionListener{
         dialog.add(scrollPane, BorderLayout.CENTER);
         dialog.add(low, BorderLayout.SOUTH);
         dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        dialog.setLocationRelativeTo(parentDialog);
-        dialog.setSize(350, 260);
+        dialog.setLocationRelativeTo(parentFrame);
+        dialog.setSize(350, 230);
         dialog.setResizable(false);
         dialog.setVisible(true);
         
@@ -73,12 +72,11 @@ public class New_AddPawngoodsGUI implements ActionListener{
         JPanel pa = new JPanel();
         pa.setPreferredSize(new Dimension(250,150));
         pa.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        JPanel pa2 = new JPanel(); pa2.setBackground(c3);
-        JPanel pa3 = new JPanel(); pa3.setBackground(c3);
+        JPanel pa2 = new JPanel();
+        JPanel pa3 = new JPanel();
         pa.setLayout(new BorderLayout());
         pa2.setLayout(new GridLayout(4,2));
-        pa2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-        JLabel label = new JLabel("Click to Add Image"); label.setFont(regF);
+        JLabel label = new JLabel("Click to add image");
         label.setBorder(BorderFactory.createLineBorder(Color.RED));
         array_image.add(null);
         label.addMouseListener(new MouseAdapter(){
@@ -105,7 +103,7 @@ public class New_AddPawngoodsGUI implements ActionListener{
                            ImageIcon resizedIcon = new ImageIcon(resizedImage);
                            array_image.set(array.indexOf(pa),resizedIcon);
                            label.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                           
+//                                label.setIcon(resizedIcon);
                        }
                        catch (IOException ex) {
                            ex.printStackTrace();
@@ -116,16 +114,16 @@ public class New_AddPawngoodsGUI implements ActionListener{
             
             });
         pa3.add(label);
-        JLabel lab1 = new JLabel("Name :"); lab1.setFont(regF);
-        JLabel lab2 = new JLabel("Cost :"); lab2.setFont(regF);
-        JLabel cater = new JLabel("Category :"); cater.setFont(regF);
-        JTextField name = new JTextField(); name.setFont(regF);
-        JTextField cost = new JTextField(); cost.setFont(regF);
+        JLabel lab1 = new JLabel("Name :");
+        JLabel lab2 = new JLabel("Cost :");
+        JLabel cater = new JLabel("category");
+        JTextField name = new JTextField();
+        JTextField cost = new JTextField();
         ButtonGroup grop = new ButtonGroup();
-        JRadioButton accessories = new JRadioButton("Accessory");
-        JRadioButton appliance = new JRadioButton("Appliance");
-        grop.add(accessories); accessories.setFont(regF);
-        grop.add(appliance); appliance.setFont(regF);
+        JRadioButton accessories = new JRadioButton("accessories");
+        JRadioButton appliance = new JRadioButton("appliance");
+        grop.add(accessories);
+        grop.add(appliance);
 
         pa2.add(lab1);
         pa2.add(name);
@@ -160,15 +158,6 @@ public class New_AddPawngoodsGUI implements ActionListener{
                 try{
                     double cost = Double.parseDouble(costField.getText());
                     total += cost;
-                    if (new_customer.CheckLimit(total)){
-                        JOptionPane.showMessageDialog(null, "Cannot cost more than 500000 ", "Category", JOptionPane.PLAIN_MESSAGE);
-                        x = 1;
-                        break;
-                    }else if(MainGUI.getInfo().checkloan(total)){
-                        JOptionPane.showMessageDialog(null, "Not enough money!", "Category", JOptionPane.PLAIN_MESSAGE);
-                        x = 1;
-                        break;
-                    }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(null, nameField.getText() +" : Please enter a number", "Value", JOptionPane.PLAIN_MESSAGE);
                     x = 1;
@@ -189,19 +178,13 @@ public class New_AddPawngoodsGUI implements ActionListener{
                         double cost = Double.parseDouble(costField.getText());
                         ImageIcon image = array_image.get(num);
                         if (accessories.isSelected()){
-                            Pawn ag = new AccessoryAndGem(MainGUI.getInfo().getAdd_id_item(), name, cost, image);
-                            new_customer.getItmes_data().put(ag.getID(), ag);
-                            if (ag.CheckValue(cost)){
-                                JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 100000 in Accessories", "Category", JOptionPane.PLAIN_MESSAGE);
-                                x = 1;
-                            }
+                            Pawn ag = new AccessoryAndGem(MainGUI.getInfo().getId_item_all(), name, cost, image);
+                              temporary_pawn.add(ag);
+//                            current_customer.getItmes_data().put(ag.getID(), ag);
                         }else if (appliance.isSelected()){
-                            Pawn a = new Appliance(MainGUI.getInfo().getAdd_id_item(), name, cost, image);
-                            new_customer.getItmes_data().put(a.getID(), a);
-                            if (a.CheckValue(cost)){
-                                JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 50000 in Appliance", "Category", JOptionPane.PLAIN_MESSAGE);
-                                x = 1;
-                            }
+                            Pawn a = new Appliance(MainGUI.getInfo().getId_item_all(), name, cost, image);
+                             temporary_pawn.add(a);
+//                            current_customer.getItmes_data().put(ag.getID(), ag);
                         }else{
                             JOptionPane.showMessageDialog(null, name +" : Please select a category", "Category", JOptionPane.PLAIN_MESSAGE);
                             x = 1;
@@ -209,15 +192,16 @@ public class New_AddPawngoodsGUI implements ActionListener{
                         num++;
                     }
                     if (x == 0){
-                        new_customer.setLoan(total);
-                        MainGUI.getInfo().addcustomer(new_customer.getId(), new_customer, total);
+                        current_customer.setLoan(current_customer.getLoan()+ total);
+                        for (Pawn p : temporary_pawn){
+                            current_customer.getItmes_data().put(p.getID(), p);
+                        }
                         dialog.dispose();
-                        parentDialog.dispose();
-                        JOptionPane.showMessageDialog(null, "Add customer complete!", "", JOptionPane.PLAIN_MESSAGE);
-                        
+                        currentFrame.UpdateGUI(current_customer.getId());
+                        JOptionPane.showMessageDialog(null, "Add pawn goods complete!", "", JOptionPane.PLAIN_MESSAGE);
                     }else{
-                        new_customer.getItmes_data().clear();
-                    }
+                        temporary_pawn.clear();
+                    } 
                 }else{
                     System.err.println("Cancel");
                 }

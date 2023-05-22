@@ -75,17 +75,24 @@ public class CustomerInfo_GUI extends JInternalFrame implements ActionListener {
         setPawnedItem(0, "", 0, "", "", null);
         idLb.setFont(regFB);
         nameLb.setFont(regF);
+        nameTf.setFont(regF);
         nameTf.setBackground(c4);
+        telLb.setFont(regF);
         telTf.setFont(regF);
         telTf.setBackground(c4);
+        adrsLb.setFont(regF);
         adrsTf.setFont(regF);
         adrsTf.setBackground(c4);
+        mailLb.setFont(regF);
         mailTf.setFont(regF);
         mailTf.setBackground(c4);
+        fbLb.setFont(regF);
         fbTf.setFont(regF);
         fbTf.setBackground(c4);
+        lineLb.setFont(regF);
         lineTf.setFont(regF);
         lineTf.setBackground(c4);
+        loanLb.setFont(regF);
         loanTf.setFont(regFB);
         loanTf.setBackground(c4);
 

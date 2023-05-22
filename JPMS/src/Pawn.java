@@ -2,7 +2,7 @@ import java.util.Calendar;
 import java.time.LocalDate;
 import java.time.Period;
 import javax.swing.ImageIcon;
-public abstract class Pawn extends Item implements Redeem, SendInterest{
+public abstract class Pawn extends Item implements SendInterest{
     private int due_date;
     private int due_month;
     private int due_year;

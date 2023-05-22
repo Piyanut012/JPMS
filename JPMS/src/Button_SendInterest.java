@@ -10,7 +10,7 @@ public class Button_SendInterest extends JButton implements ActionListener{
     public Button_SendInterest(JFrame fr, CustomerInfo_GUI c){
         this.parent = fr;
         this.current = c;
-        this.setText("SendInterest");
+        this.setText("Send Interest");
         this.setPreferredSize(new Dimension(150, 75));
         this.setEnabled(false);
     }

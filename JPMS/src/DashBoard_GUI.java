@@ -105,7 +105,7 @@ public class DashBoard_GUI extends JInternalFrame{
         lb9.setFont(regFB);
         lb9.setForeground(Color.RED);
         
-        lb11 = new JLabel("Users");
+        lb11 = new JLabel("Customers");
         lb11.setFont(regF);
         lb12 = new JLabel(MainGUI.getInfo().getId_customer_all()+"");
         lb12.setFont(regFB);

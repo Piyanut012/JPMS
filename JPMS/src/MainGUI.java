@@ -53,8 +53,7 @@ public class MainGUI implements ActionListener, WindowListener {
         top.setLayout(new BorderLayout());
 
         select_button = new JPanel();
-        select_button.setLayout(new FlowLayout());
-        select_button.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        select_button.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 8));
         north.setBackground(c3);
         top.setBackground(c5);
         select_button.setBackground(c4);
@@ -83,9 +82,9 @@ public class MainGUI implements ActionListener, WindowListener {
         }
         search_id = new JTextField();
         search_id.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-        search_id.setPreferredSize(new Dimension(500, 45));
+        search_id.setPreferredSize(new Dimension(450, 45));
 
-         head = new JLabel("JPMS");
+        head = new JLabel("JPMS");
         head.setFont(new Font("Bauhaus 93", Font.PLAIN, 60));
         head.setHorizontalAlignment(JLabel.CENTER);
         head.setVerticalAlignment(JLabel.TOP);
@@ -145,7 +144,8 @@ public class MainGUI implements ActionListener, WindowListener {
         btn_chart = new Button_Chart(fr,this);
         btn_chart.addActionListener(this);
         south.add(btn_chart);
-        
+        btn_chart.setPreferredSize(new Dimension(200, 50));
+        btn_chart.setFont(regF);
 
         //Add Listener
         fr.addWindowListener(this);
@@ -270,7 +270,7 @@ public class MainGUI implements ActionListener, WindowListener {
                     search_id.setText(null);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Please enter id!", "", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please enter ID!", "", JOptionPane.ERROR_MESSAGE);
             }
 
         } else if (e.getSource().equals(btn_new_customer)) {
@@ -308,9 +308,9 @@ public class MainGUI implements ActionListener, WindowListener {
             System.out.println("Load data");
             
             //test add money 
-            double money = 1500000;
-            info.setCapital(money);
-            info.setCurrent_money(money);
+//            double money = 1500000;
+//            info.setCapital(money);
+//            info.setCurrent_money(money);
             info.update_customer();
             info.update_pawngoods();
         } catch (IOException | ClassNotFoundException ex) {

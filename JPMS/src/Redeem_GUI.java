@@ -8,7 +8,11 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.*;
 
 public class Redeem_GUI implements ActionListener, TableModelListener{
-     private JDialog dialog;
+    
+    private final Font regF = new Font("Century Gothic", Font.PLAIN, 14);
+    private final Color c4 = new Color(250, 237, 205);
+    private final Color c3 = new Color(254, 250, 224);
+    private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame; 
     private JPanel panel1;
@@ -35,7 +39,7 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         current_customer_allpawn =  currentFrame.getCurrent_customer().getItmes_data();
         id_pawn = new HashSet<>();
         
-        dialog = new JDialog(parentFrame, "SetInterest", true);
+        dialog = new JDialog(parentFrame, "Redeem", true);
         dialog.setLayout(new BorderLayout());
         
         panel1 = new JPanel();
@@ -44,6 +48,8 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         panel2.setLayout(new GridLayout(1,2));
         panel3 = new JPanel();
         panel3.setLayout(new FlowLayout());
+        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        panel3.setBackground(c4);
         
         name = new JLabel("", JLabel.CENTER);
         
@@ -51,14 +57,14 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         
         scroll = new JScrollPane();
         
-        confirm = new JButton("Confirm");
+        confirm = new JButton("Confirm"); confirm.setFont(regF);
         confirm.addActionListener(this);
-        cancel = new JButton("Cancel");
+        cancel = new JButton("Cancel"); cancel.setFont(regF);
         cancel.addActionListener(this);
-        selectAll = new JButton("Select All");
+        selectAll = new JButton("Select All"); selectAll.setFont(regF);
         selectAll.addActionListener(this);
         
-        String[] columnNames = {"","ID", "Name", "Pirce", "Status"};
+        String[] columnNames = {"","ID", "Name", "Price", "Status"};
         Object[][] data = new Object[current_customer_allpawn.size()][5];
         int i = 0;
         for (Pawn p : current_customer_allpawn.values()){
@@ -67,7 +73,7 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         }
         
         model = new DefaultTableModel(data, columnNames);
-        table = new JTable(model);
+        table = new JTable(model); table.setBackground(c3); table.setFont(regF);
         table.setRowHeight(50);
 //        System.out.println(table.getComponentCount());
         
@@ -107,7 +113,7 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
         double total = 0;
         for(int p : id_pawn){
             pro = currentFrame.getCurrent_customer().Promotion();
-            total += current_customer_allpawn.get(p).InterestPrice(pro);
+            total += current_customer_allpawn.get(p).Sell();
         }
         
         if(btn.equals(confirm)){

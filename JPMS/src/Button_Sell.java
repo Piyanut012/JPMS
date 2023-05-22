@@ -37,7 +37,7 @@ public class Button_Sell extends JButton implements ActionListener{
                 }
                 gui.setTable(MainGUI.getInfo().getPawn_droppings_data());
                 MainGUI.getInfo().sellpawndroppings(Pawn_droppings_sell.size(), total);
-                JOptionPane.showMessageDialog(this, "Sell Complete!", "", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Sell Complete!", "", JOptionPane.PLAIN_MESSAGE);
             }
       
     }

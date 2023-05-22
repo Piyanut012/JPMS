@@ -156,7 +156,7 @@ public final class Information implements Serializable{
             for (Pawn itemss : itemsData.values()) {
                 LocalDateTime itemTime = LocalDateTime.of(itemss.getDue_year(), itemss.getDue_month(), itemss.getDue_date(), 0, 0);
                 //test
-                if (currentDateTime.isBefore(itemTime)) {
+                if (currentDateTime.isAfter(itemTime)) {
                     Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
                             itemss.getValue(), itemss.getImage());
                     Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);

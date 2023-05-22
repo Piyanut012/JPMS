@@ -8,6 +8,10 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.event.*;
 
 public class New_CustomerGUI implements ActionListener {
+    
+    private final Font regF = new Font("Century Gothic", Font.PLAIN, 14);
+    private final Font regFB = new Font("Century Gothic", Font.BOLD, 16);
+    private final Color c4 = new Color(250, 237, 205);
     private JDialog dialog;
     private JPanel pa;
     private JLabel lb1;
@@ -30,20 +34,20 @@ public class New_CustomerGUI implements ActionListener {
         id = MainGUI.getInfo().getAdd_id_customer();
         dialog = new JDialog(parentFrame, "New Customer", true);  
         pa = new JPanel();
-        lb1 = new JLabel ("ID : " + id);
-        lb2 = new JLabel ("Name :");
-        lb3 = new JLabel ("Phone : ");
-        lb4 = new JLabel ("Address :");
-        lb5 = new JLabel ("E-mail :");
-        jcomp7 = new JLabel ("FB :");
-        lb6 = new JLabel ("Line : ");
-        te1 = new JTextField ();
-        te2 = new JTextField ();
-        te3 = new JTextField ();
-        te4 = new JTextField ();
-        te5 = new JTextField ();
-        te6 = new JTextField ();
-        bu = new JButton ("NEXT");
+        lb1 = new JLabel ("ID : " + id); lb1.setFont(regFB);
+        lb2 = new JLabel ("Name :"); lb2.setFont(regF);
+        lb3 = new JLabel ("Phone : "); lb3.setFont(regF);
+        lb4 = new JLabel ("Address :"); lb4.setFont(regF);
+        lb5 = new JLabel ("E-mail :"); lb5.setFont(regF);
+        jcomp7 = new JLabel ("FB :"); jcomp7.setFont(regF);
+        lb6 = new JLabel ("Line : "); lb6.setFont(regF);
+        te1 = new JTextField (); te1.setFont(regF);
+        te2 = new JTextField (); te2.setFont(regF);
+        te3 = new JTextField (); te3.setFont(regF);
+        te4 = new JTextField (); te4.setFont(regF);
+        te5 = new JTextField (); te5.setFont(regF);
+        te6 = new JTextField (); te6.setFont(regF);
+        bu = new JButton ("Next"); bu.setFont(regF);
 
         pa.setPreferredSize (new Dimension (350, 300));
         pa.setLayout (null);
@@ -72,21 +76,22 @@ public class New_CustomerGUI implements ActionListener {
         pa.add (bu);
         dialog.add(pa);
         
-        lb1.setBounds (130, 5, 100, 25);
-        lb2.setBounds (5, 45, 100, 25);
-        lb3.setBounds (5, 70, 100, 25);
-        lb4.setBounds (5, 95, 100, 25);
-        lb5.setBounds (5, 125, 100, 25);
-        jcomp7.setBounds (5, 155, 100, 25);
-        lb6.setBounds (5, 180, 100, 25);
-        te1.setBounds (80, 50, 240, 20);
-        te2.setBounds (80, 75, 240, 20);
-        te3.setBounds (80, 100, 240, 20);
-        te4.setBounds (80, 130, 240, 20);
-        te5.setBounds (80, 155, 240, 20);
-        te6.setBounds (80, 180, 240, 20);
-        bu.setBounds (260, 265, 75, 25);
+        lb1.setBounds (150, 10, 100, 25);
+        lb2.setBounds (20, 55, 100, 25);
+        lb3.setBounds (20, 80, 100, 25);
+        lb4.setBounds (20, 105, 100, 25);
+        lb5.setBounds (20, 130, 100, 25);
+        jcomp7.setBounds (20, 155, 100, 25);
+        lb6.setBounds (20, 180, 100, 25);
+        te1.setBounds (85, 55, 240, 30);
+        te2.setBounds (85, 80, 240, 30);
+        te3.setBounds (85, 105, 240, 30);
+        te4.setBounds (85, 130, 240, 30);
+        te5.setBounds (85, 155, 240, 30);
+        te6.setBounds (85, 180, 240, 30);
+        bu.setBounds (250, 250, 75, 35);
         
+        pa.setBackground(c4);
         dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         dialog.setLocationRelativeTo(parentFrame);
         dialog.setResizable(false);
