@@ -28,9 +28,6 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
     private DefaultTableModel model;
     private LinkedHashMap<Integer, Pawn> current_customer_allpawn;
     private HashSet<Integer> id_pawn; 
-    private int nowDate;
-    private int nowMonth;
-    private int nowYear;
 
     
     public SentInterest_GUI(JFrame pf, CustomerInfo_GUI cf){
@@ -74,8 +71,7 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         model = new DefaultTableModel(data, columnNames);
         table = new JTable(model); table.setBackground(c3); table.setFont(regF);
         table.setRowHeight(50);
-//        System.out.println(table.getComponentCount());
-        
+
         TableColumn checkboxColumn = table.getColumnModel().getColumn(0);
         checkboxColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
         checkboxColumn.setCellEditor(table.getDefaultEditor(Boolean.class));

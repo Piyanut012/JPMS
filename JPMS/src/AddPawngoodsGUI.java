@@ -125,7 +125,7 @@ public class AddPawngoodsGUI implements ActionListener{
         JTextField name = new JTextField(); name.setFont(regF);
         JTextField cost = new JTextField(); cost.setFont(regF);
         ButtonGroup grop = new ButtonGroup();
-        JRadioButton accessories = new JRadioButton("Accessory");
+        JRadioButton accessories = new JRadioButton("Accessory&Gem");
         JRadioButton appliance = new JRadioButton("Appliance");
         grop.add(accessories); accessories.setFont(regF);
         grop.add(appliance); appliance.setFont(regF);
@@ -199,7 +199,6 @@ public class AddPawngoodsGUI implements ActionListener{
                                 x = 1;
                             }
                               
-//                            current_customer.getItmes_data().put(ag.getID(), ag);
                         }else if (appliance.isSelected()){
                             Pawn a = new Appliance(MainGUI.getInfo().getAdd_id_item(), name, cost, image);
                              temporary_pawn.add(a);
@@ -207,7 +206,7 @@ public class AddPawngoodsGUI implements ActionListener{
                                 JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 50000 in Appliance", "Category", JOptionPane.PLAIN_MESSAGE);
                                 x = 1;
                             }
-//                            current_customer.getItmes_data().put(ag.getID(), ag);
+
                         }else{
                             JOptionPane.showMessageDialog(null, name +" : Please select a category", "Category", JOptionPane.PLAIN_MESSAGE);
                             x = 1;

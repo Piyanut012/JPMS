@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import com.formdev.flatlaf.*;
 
-
 public class MainGUI implements ActionListener, WindowListener {
 
     private final Color c1 = new Color(204, 213, 174);
@@ -30,7 +29,7 @@ public class MainGUI implements ActionListener, WindowListener {
     private JInternalFrame currentPanel;
     private JLabel head, name, lb_search1;
     private JTextField search_id;
-    private JButton btn_dashboard, btn_customers, btn_redemption, btn_seacrh, btn_new_customer, prev, next, btn_chart;
+    private JButton btn_dashboard, btn_customers, btn_pawndropping, btn_seacrh, btn_new_customer, prev, next, btn_chart;
     private Button_Sell btn_sell;
     private Button_SelectAll btn_selectall;
     private Button_AddPawngoods btn_addmoney;
@@ -101,9 +100,9 @@ public class MainGUI implements ActionListener, WindowListener {
         btn_customers = new JButton("Customers");
         btn_customers.setFont(new Font("Century Gothic", Font.BOLD, 20));
         btn_customers.setPreferredSize(new Dimension(200, 50));
-        btn_redemption = new JButton("Pawn Droppings");
-        btn_redemption.setFont(new Font("Century Gothic", Font.BOLD, 20));
-        btn_redemption.setPreferredSize(new Dimension(200, 50));
+        btn_pawndropping = new JButton("Pawn Droppings");
+        btn_pawndropping.setFont(new Font("Century Gothic", Font.BOLD, 20));
+        btn_pawndropping.setPreferredSize(new Dimension(200, 50));
 
         //Mid
         dashboard = new DashBoard_GUI();
@@ -151,7 +150,7 @@ public class MainGUI implements ActionListener, WindowListener {
         fr.addWindowListener(this);
         btn_dashboard.addActionListener(this);
         btn_customers.addActionListener(this);
-        btn_redemption.addActionListener(this);
+        btn_pawndropping.addActionListener(this);
         btn_seacrh.addActionListener(this);
         btn_new_customer.addActionListener(this);
         prev.addActionListener(this);
@@ -168,7 +167,7 @@ public class MainGUI implements ActionListener, WindowListener {
         top.add(name, BorderLayout.EAST);
         select_button.add(btn_dashboard);
         select_button.add(btn_customers);
-        select_button.add(btn_redemption);
+        select_button.add(btn_pawndropping);
         search.add(lb_search1);
         search.add(search_id);
         search.add(btn_seacrh);
@@ -180,7 +179,7 @@ public class MainGUI implements ActionListener, WindowListener {
         fr.add(currentPanel);
 
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setResizable(true);
+        fr.setResizable(false);
         fr.setVisible(true);
     }
 
@@ -231,7 +230,7 @@ public class MainGUI implements ActionListener, WindowListener {
             prev.setVisible(true);
             next.setVisible(true);
 
-        } else if (e.getSource().equals(btn_redemption)) {
+        } else if (e.getSource().equals(btn_pawndropping)) {
             search.setVisible(true);
             btn_new_customer.setVisible(false);
             fr.remove(currentPanel);

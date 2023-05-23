@@ -21,13 +21,15 @@ public class PieChart_GUI extends JInternalFrame
         dataset1.setValue("Loan : "+MainGUI.getInfo().getLoan(), MainGUI.getInfo().getLoan());
         dataset1.setValue("Profit : "+MainGUI.getInfo().getProfit(), MainGUI.getInfo().getProfit());
         
+        
         JFreeChart chart1 = ChartFactory.createPieChart("Finance", dataset1, true, true, false);
+        chart1.setBackgroundPaint(new Color(250, 237, 205));
         PiePlot plot1 = (PiePlot) chart1.getPlot();
         plot1.setLabelFont(new Font("Century Gothic", Font.PLAIN, 10));
         plot1.setNoDataMessage("NO DATA");
         plot1.setCircular(false);
         plot1.setLabelGap(0.02);
-        plot1.setLabelBackgroundPaint(new Color(220, 220, 220));
+        plot1.setLabelBackgroundPaint(new Color(233, 237, 201));
         
         DefaultPieDataset dataset2 = new DefaultPieDataset();
         dataset2.setValue("Pawn Goods : "+MainGUI.getInfo().getPawn_goods(), MainGUI.getInfo().getPawn_goods());
@@ -35,12 +37,13 @@ public class PieChart_GUI extends JInternalFrame
         dataset2.setValue("Sales : "+MainGUI.getInfo().getSold(), MainGUI.getInfo().getSold());
         
         JFreeChart chart2 = ChartFactory.createPieChart("Goods", dataset2, true, true, false);
+        chart2.setBackgroundPaint(new Color(250, 237, 205));
         PiePlot plot2 = (PiePlot) chart2.getPlot();
         plot2.setLabelFont(new Font("Century Gothic", Font.PLAIN, 10));
         plot2.setNoDataMessage("NO DATA");
         plot2.setCircular(true);
         plot2.setLabelGap(0.02);
-        plot2.setLabelBackgroundPaint(new Color(220, 220, 220));
+        plot2.setLabelBackgroundPaint(new Color(233, 237, 201));
          
         ChartPanel chartPanel1 = new ChartPanel(chart1);
         chartPanel1.setPreferredSize(new Dimension(400, 300));

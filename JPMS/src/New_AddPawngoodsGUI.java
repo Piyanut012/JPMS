@@ -122,7 +122,7 @@ public class New_AddPawngoodsGUI implements ActionListener{
         JTextField name = new JTextField(); name.setFont(regF);
         JTextField cost = new JTextField(); cost.setFont(regF);
         ButtonGroup grop = new ButtonGroup();
-        JRadioButton accessories = new JRadioButton("Accessory");
+        JRadioButton accessories = new JRadioButton("Accessory&Gem");
         JRadioButton appliance = new JRadioButton("Appliance");
         grop.add(accessories); accessories.setFont(regF);
         grop.add(appliance); appliance.setFont(regF);
