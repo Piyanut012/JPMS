@@ -15,6 +15,7 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
     private JDialog dialog;
     private JFrame parentFrame;
     private CustomerInfo_GUI currentFrame; 
+    private Customer current_customer;
     private JPanel panel1;
     private JPanel panel2;
     private JPanel panel3;
@@ -33,7 +34,8 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
     public SentInterest_GUI(JFrame pf, CustomerInfo_GUI cf){
         parentFrame = pf;
         currentFrame = cf;
-        current_customer_allpawn =  currentFrame.getCurrent_customer().getItmes_data();
+        current_customer = currentFrame.getCurrent_customer();
+        current_customer_allpawn =  current_customer.getItmes_data();
         id_pawn = new HashSet<>();
         
         dialog = new JDialog(parentFrame, "Send Interest", true);
@@ -107,24 +109,23 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
         double pro;
         double total = 0;
         for(int p : id_pawn){
-            pro = currentFrame.getCurrent_customer().Promotion();
-            total += current_customer_allpawn.get(p).InterestPrice(pro);
+            pro = current_customer.Promotion(); 
+            total += addtotal(current_customer_allpawn.get(p), pro);
         }
         
         if(btn.equals(confirm)){
             int x = JOptionPane.showConfirmDialog(null, total, null, JOptionPane.YES_NO_OPTION);
             if(x == 0){
                 for(int p : id_pawn){
-                    current_customer_allpawn.get(p).SendInterest_complete();
+                    sentinterest_complete(current_customer_allpawn.get(p));
                 }
-                if (currentFrame.getCurrent_customer() instanceof Old_Customer){
-                    Old_Customer old = (Old_Customer) currentFrame.getCurrent_customer();
-                    old.setSentinterest_amount(total);
+                if (current_customer instanceof Old_Customer old_Customer){
+                    current_customer.addinterest_amout(old_Customer, total);
                 }
                 MainGUI.getInfo().sentinterest(total);
-                currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
-
+                currentFrame.UpdateGUI(current_customer.getId());
                 dialog.dispose();
+                JOptionPane.showMessageDialog(null, "SentInterest Complete!", "", JOptionPane.PLAIN_MESSAGE);
             }
         }else if(btn.equals(cancel)){
             dialog.dispose();
@@ -165,5 +166,13 @@ public class SentInterest_GUI implements ActionListener, TableModelListener{
 
             }
         }
+    }
+    
+    public double addtotal(SendInterest pawngoods, double pro){
+        return pawngoods.InterestPrice(pro);
+    }
+    
+    public void sentinterest_complete(SendInterest pawngoods){
+        pawngoods.SendInterest_complete();
     }
 }

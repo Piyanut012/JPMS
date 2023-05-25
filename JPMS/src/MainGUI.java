@@ -205,7 +205,9 @@ public class MainGUI implements ActionListener, WindowListener {
             customers = new CustomerInfo_GUI();
             currentPanel = customers;
             fr.add(currentPanel);
-
+            
+   
+          
             //Add Button At South
             south.removeAll();
             btn_addmoney = new Button_AddPawngoods(fr, customers);
@@ -225,6 +227,14 @@ public class MainGUI implements ActionListener, WindowListener {
             south.add(btn_addmoney);
             south.add(btn_payinterest);
             south.add(btn_redeem);
+            
+            
+            if (!info.getCustomers_Data().isEmpty()){
+                customers.UpdateGUI(1);
+                btn_addmoney.setEnabled(true);
+                btn_redeem.setEnabled(true);
+                btn_payinterest.setEnabled(true);
+            }
 
             // show buttons
             prev.setVisible(true);

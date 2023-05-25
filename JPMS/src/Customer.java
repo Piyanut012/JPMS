@@ -35,6 +35,14 @@ public abstract class Customer implements Serializable{
         this.month = d.get(Calendar.MONTH);
         this.year = d.get(Calendar.YEAR);
     }
+    
+    public void addpawngoods(Pawn p){
+        this.itmes_data.put(p.getID(), p);
+    }
+    
+    public void addinterest_amout(Old_Customer os, double total){
+        os.setSentinterest_amount(total);
+    }
 
     public LinkedHashMap<Integer, Pawn> getItmes_data() {
         return itmes_data;
@@ -136,4 +144,5 @@ public abstract class Customer implements Serializable{
     
     public abstract double Promotion();
     public abstract boolean CheckLimit(double total);
+    
 }

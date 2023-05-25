@@ -17,7 +17,6 @@ public class Pawn_droppings extends Item{
     
     @Override
     public double Sell(){
-        System.out.println("Sell Pawn_droppings");
-        return 1.2;
+        return this.getValue();
     }
 }

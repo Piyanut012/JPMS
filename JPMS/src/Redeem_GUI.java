@@ -109,10 +109,8 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
     public void actionPerformed(ActionEvent ae){
         JButton btn = (JButton) ae.getSource();
         //total
-        double pro;
         double total = 0;
         for(int p : id_pawn){
-            pro = currentFrame.getCurrent_customer().Promotion();
             total += current_customer_allpawn.get(p).Sell();
         }
         
@@ -128,6 +126,7 @@ public class Redeem_GUI implements ActionListener, TableModelListener{
                 MainGUI.getInfo().redeem(id_pawn.size(), total, allvalue);
                 currentFrame.UpdateGUI(currentFrame.getCurrent_customer().getId());
                 dialog.dispose();
+                JOptionPane.showMessageDialog(null, "Redeem Complete!", "", JOptionPane.PLAIN_MESSAGE);
             }
         }else if(btn.equals(cancel)){
             dialog.dispose();

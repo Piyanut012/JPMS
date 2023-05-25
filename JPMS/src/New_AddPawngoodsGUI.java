@@ -190,14 +190,14 @@ public class New_AddPawngoodsGUI implements ActionListener{
                         ImageIcon image = array_image.get(num);
                         if (accessories.isSelected()){
                             Pawn ag = new AccessoryAndGem(MainGUI.getInfo().getAdd_id_item(), name, cost, image);
-                            new_customer.getItmes_data().put(ag.getID(), ag);
+                            new_customer.addpawngoods(ag);
                             if (ag.CheckValue(cost)){
                                 JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 100000 in Accessories", "Category", JOptionPane.PLAIN_MESSAGE);
                                 x = 1;
                             }
                         }else if (appliance.isSelected()){
                             Pawn a = new Appliance(MainGUI.getInfo().getAdd_id_item(), name, cost, image);
-                            new_customer.getItmes_data().put(a.getID(), a);
+                            new_customer.addpawngoods(a);
                             if (a.CheckValue(cost)){
                                 JOptionPane.showMessageDialog(null, name +" : Cannot cost more than 50000 in Appliance", "Category", JOptionPane.PLAIN_MESSAGE);
                                 x = 1;

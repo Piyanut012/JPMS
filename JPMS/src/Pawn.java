@@ -157,11 +157,11 @@ public abstract class Pawn extends Item implements SendInterest{
         return monthtime;
     }
     
-    @Override
     public double InterestPrice(){
         return this.monthTime() * this.getValue() * (this.interest / 100);
     }
     
+    @Override
     public double InterestPrice(double pro){
         return this.monthTime() * this.getValue() * ((this.interest - pro) / 100);
     }

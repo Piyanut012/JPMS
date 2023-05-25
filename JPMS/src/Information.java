@@ -159,7 +159,7 @@ public final class Information implements Serializable{
                 if (currentDateTime.isAfter(itemTime)) {
                     Pawn_droppings newPawnDrop = new Pawn_droppings(itemss.getID(), itemss.getName(),
                             itemss.getValue(), itemss.getImage());
-                    Pawn_droppings_data.put(newPawnDrop.getID(), newPawnDrop);
+                    addpawndropping(newPawnDrop);
                     cus.setLoan(cus.getLoan()-itemss.getValue());
                     itemsToRemove.put(itemss.getID(), itemss);
                 }
@@ -200,6 +200,10 @@ public final class Information implements Serializable{
     public void addcustomer(int id, Customer c, double total){
         this.Customers_Data.put(id, c);
         addpawngoods(c.getItmes_data().size(),total);   
+    }
+    
+    public void addpawndropping(Pawn_droppings pd){
+        this.Pawn_droppings_data.put(pd.getID(), pd);
     }
     
     public void addpawngoods(int amount,double total){

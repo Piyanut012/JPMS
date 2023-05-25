@@ -216,7 +216,7 @@ public class AddPawngoodsGUI implements ActionListener{
                     if (x == 0){
                         current_customer.setLoan(current_customer.getLoan()+ total);
                         for (Pawn p : temporary_pawn){
-                            current_customer.getItmes_data().put(p.getID(), p);
+                            current_customer.addpawngoods(p);
                         }
                         MainGUI.getInfo().addpawngoods(temporary_pawn.size(),total);
                         dialog.dispose();

@@ -22,7 +22,7 @@ public class Button_Sell extends JButton implements ActionListener{
         //total
         double total = 0;
         for(Integer id : Pawn_droppings_sell){
-           total += MainGUI.getInfo().getPawn_droppings_data().get(id).getValue();
+           total += MainGUI.getInfo().getPawn_droppings_data().get(id).Sell();
         }
         
         if (total == 0){
@@ -37,6 +37,7 @@ public class Button_Sell extends JButton implements ActionListener{
                 }
                 gui.setTable(MainGUI.getInfo().getPawn_droppings_data());
                 MainGUI.getInfo().sellpawndroppings(Pawn_droppings_sell.size(), total);
+                Pawn_droppings_sell.clear();
                 JOptionPane.showMessageDialog(null, "Sell Complete!", "", JOptionPane.PLAIN_MESSAGE);
             }
       

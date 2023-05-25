@@ -36,7 +36,7 @@ public class Old_Customer extends Customer{
     
     @Override
     public double Promotion(){
-        if (this.sentinterest_amount >= 50000){
+        if (this.sentinterest_amount >= 10000){
             return 0.25;
         }
         else{
